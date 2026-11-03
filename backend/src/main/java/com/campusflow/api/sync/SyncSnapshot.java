@@ -9,12 +9,14 @@ public class SyncSnapshot {
     @Id private UUID userId;
     @Column(nullable = false, columnDefinition = "text") private String tasksJson = "[]";
     @Column(nullable = false, columnDefinition = "text") private String focusLogJson = "[]";
+    @Column(nullable = false, columnDefinition = "text") private String deletedTaskIdsJson = "[]";
     @Column(nullable = false) private Instant updatedAt = Instant.now();
     protected SyncSnapshot() {}
-    public SyncSnapshot(UUID userId, String tasksJson, String focusLogJson) { this.userId=userId; this.tasksJson=tasksJson; this.focusLogJson=focusLogJson; }
+    public SyncSnapshot(UUID userId, String tasksJson, String focusLogJson, String deletedTaskIdsJson) { this.userId=userId; this.tasksJson=tasksJson; this.focusLogJson=focusLogJson; this.deletedTaskIdsJson=deletedTaskIdsJson; }
     public UUID getUserId() { return userId; }
     public String getTasksJson() { return tasksJson; }
     public String getFocusLogJson() { return focusLogJson; }
+    public String getDeletedTaskIdsJson() { return deletedTaskIdsJson; }
     public Instant getUpdatedAt() { return updatedAt; }
-    public void replace(String tasks, String log) { tasksJson=tasks; focusLogJson=log; updatedAt=Instant.now(); }
+    public void replace(String tasks, String log, String deletedIds) { tasksJson=tasks; focusLogJson=log; deletedTaskIdsJson=deletedIds; updatedAt=Instant.now(); }
 }
