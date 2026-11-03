@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -80,6 +81,11 @@
             </article>
           </section>
 
+          <section class="insights-grid" aria-label="Study insights">
+            <article class="insight-card card-panel"><div class="insight-title"><span>✦</span><div><p class="eyebrow" data-i18n="yourProgress">YOUR PROGRESS</p><h2 data-i18n="levelAndStreak">Level & streak</h2></div></div><div class="xp-row"><strong id="level-value">1</strong><span data-i18n="level">Level</span><span class="streak-badge">🔥 <strong id="streak-value">0</strong> <span data-i18n="dayStreak">day streak</span></span><span class="xp-total"><strong id="xp-value">0</strong> XP</span></div><div class="xp-track"><span id="xp-bar"></span></div><p id="xp-caption" class="insight-caption"></p></article>
+            <article class="insight-card card-panel"><div class="insight-title"><span>▦</span><div><p class="eyebrow" data-i18n="studyAnalytics">STUDY ANALYTICS</p><h2 data-i18n="yearActivity">Activity this year</h2></div><button class="text-button" id="export-data" type="button" data-i18n="exportData">Export data</button><label class="import-button">↥ <span data-i18n="importData">Import</span><input id="import-data" type="file" accept="application/json" hidden /></label></div><div class="heatmap-wrap"><div id="heatmap" class="heatmap" role="img"></div><div class="heatmap-legend"><span data-i18n="less">Less</span><i></i><i></i><i></i><i></i><span data-i18n="more">More</span></div></div><div class="category-time" id="category-time"></div></article>
+          </section>
+
           <div class="dashboard-grid">
             <section class="tasks-panel card-panel" aria-labelledby="tasks-heading">
               <div class="panel-header">
@@ -108,6 +114,7 @@
                 <form id="task-form">
                   <label class="field-label" for="task-title" data-i18n="taskTitleLabel">What needs doing?</label>
                   <input class="text-input" id="task-title" name="title" type="text" maxlength="90" placeholder="e.g. Review data structures" data-i18n-placeholder="taskTitlePlaceholder" required />
+                  <div class="form-row"><div class="field-group"><label class="field-label" for="task-estimate" data-i18n="estimateMinutes">Estimate (minutes)</label><input class="text-input" id="task-estimate" name="estimate" type="number" min="15" max="600" step="15" value="60" /></div><div class="field-group"><label class="field-label" for="task-subtasks" data-i18n="subtasks">Subtasks (one per line)</label><textarea class="text-input subtasks-input" id="task-subtasks" name="subtasks" rows="2" data-i18n-placeholder="subtasksPlaceholder" placeholder="Read chapter\nSolve exercises"></textarea></div></div>
                   <div class="form-row">
                     <div class="field-group"><label class="field-label" for="task-category" data-i18n="subject">Subject</label><select class="text-input" id="task-category" name="category"><option value="Study" data-i18n="studyCategory">Study</option><option value="Project" data-i18n="projectCategory">Project</option><option value="Personal" data-i18n="personalCategory">Personal</option><option value="Review" data-i18n="reviewCategory">Review</option></select></div>
                     <div class="field-group"><label class="field-label" for="task-priority" data-i18n="priority">Priority</label><select class="text-input" id="task-priority" name="priority"><option value="normal" data-i18n="normalPriority">Normal</option><option value="high" data-i18n="highPriority">High</option><option value="low" data-i18n="lowPriority">Low</option></select></div>
@@ -116,6 +123,7 @@
                   <input class="text-input date-input" id="task-date" name="dueDate" type="date" />
                   <button class="primary-button submit-button" type="submit"><span data-i18n="addToPlan">Add to my plan</span> <span aria-hidden="true">↗</span></button>
                   <p class="form-note"><span aria-hidden="true">🔒</span> <span data-i18n="localStorageNote">Your tasks stay in this browser.</span></p>
+                  <button class="text-button reminder-button" id="enable-reminders" type="button" data-i18n="enableReminders">Enable due-date reminders</button>
                 </form>
               </section>
 
