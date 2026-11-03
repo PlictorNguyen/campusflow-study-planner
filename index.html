@@ -124,6 +124,25 @@
                 <div class="week-days" id="week-days" aria-label="This week's task activity"></div>
                 <div class="week-legend"><span><i class="legend-dot done-dot"></i>Completed</span><span><i class="legend-dot todo-dot"></i>Due date</span></div>
               </section>
+
+              <section class="timer-card card-panel" aria-labelledby="timer-heading">
+                <div class="week-heading"><div><p class="eyebrow">FOCUS SESSION</p><h2 id="timer-heading">Pomodoro timer</h2></div><span class="timer-icon" aria-hidden="true">◷</span></div>
+                <label class="field-label focus-task-label" for="focus-task">Focus on a task</label>
+                <select class="text-input" id="focus-task" aria-label="Choose a task for this focus session"></select>
+                <div class="timer-mode-row" role="group" aria-label="Timer mode">
+                  <button class="timer-mode is-current" type="button" data-mode="focus" aria-pressed="true">Focus <span>25 min</span></button>
+                  <button class="timer-mode" type="button" data-mode="break" aria-pressed="false">Break <span>5 min</span></button>
+                </div>
+                <div class="timer-dial" id="timer-dial" role="timer" aria-live="off" aria-label="25 minutes remaining">
+                  <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="dial-track" cx="60" cy="60" r="52"></circle><circle class="dial-progress" id="dial-progress" cx="60" cy="60" r="52"></circle></svg>
+                  <div class="timer-readout"><strong id="timer-display">25:00</strong><span id="timer-caption">Ready to focus</span></div>
+                </div>
+                <div class="timer-controls">
+                  <button class="primary-button timer-start" id="timer-start" type="button">Start focus</button>
+                  <button class="timer-reset" id="timer-reset" type="button" aria-label="Reset timer" title="Reset timer">↺</button>
+                </div>
+                <div class="session-count"><span class="session-spark" aria-hidden="true">✦</span><span><strong id="session-total">0</strong> focus sessions today</span></div>
+              </section>
             </aside>
           </div>
           <footer class="page-footer"><span>Made for focused learning</span><span>CampusFlow <span class="footer-heart">✦</span></span></footer>
