@@ -104,6 +104,7 @@ let selectedFocusTaskId = "";
 let sessionsToday = Number(readStorage(`campusflow_sessions_${today}`)) || 0;
 const SESSION_LOG_KEY = "campusflow_focus_log_v1";
 let focusLog = (() => { try { const value = JSON.parse(readStorage(SESSION_LOG_KEY) || "[]"); return Array.isArray(value) ? value : []; } catch { return []; } })();
+let deletedTaskIds = (() => { try { const value = JSON.parse(readStorage("campusflow_deleted_tasks_v1") || "[]"); return Array.isArray(value) ? value : []; } catch { return []; } })();
 let apiBase = readStorage("campusflow_api_url_v1") || window.CAMPUSFLOW_API_URL || "http://localhost:8080";
 let accountToken = readStorage("campusflow_token_v1") || "";
 let roomSocket = null;
@@ -433,6 +434,8 @@ function toggleTask(id) {
 }
 
 function deleteTask(id) {
+  if (!deletedTaskIds.includes(id)) deletedTaskIds.push(id);
+  writeStorage("campusflow_deleted_tasks_v1", JSON.stringify(deletedTaskIds));
   tasks = tasks.filter((task) => task.id !== id);
   saveTasks();
   render();
@@ -486,6 +489,8 @@ form.addEventListener("submit", (event) => {
 
 $("#clear-completed").addEventListener("click", () => {
   const completedCount = tasks.filter((task) => task.completed).length;
+  tasks.filter((task) => task.completed).forEach((task) => { if (!deletedTaskIds.includes(task.id)) deletedTaskIds.push(task.id); });
+  writeStorage("campusflow_deleted_tasks_v1", JSON.stringify(deletedTaskIds));
   tasks = tasks.filter((task) => !task.completed);
   saveTasks();
   render();
@@ -569,12 +574,14 @@ async function apiRequest(path, options = {}) {
 }
 
 function mergeSnapshot(remote) {
+  deletedTaskIds = [...new Set([...deletedTaskIds, ...(remote.deletedTaskIds || []).map((item) => item.asText ? item.asText() : item)])];
+  writeStorage("campusflow_deleted_tasks_v1", JSON.stringify(deletedTaskIds));
   const localById = new Map(tasks.map((task) => [task.id, task]));
   (remote.tasks || []).forEach((task) => {
     const local = localById.get(task.id);
     if (!local || Number(task.updatedAt || 0) > Number(local.updatedAt || 0)) localById.set(task.id, task);
   });
-  tasks = [...localById.values()];
+  tasks = [...localById.values()].filter((task) => !deletedTaskIds.includes(task.id));
   const logs = new Map();
   [...focusLog, ...(remote.focusLog || [])].forEach((item, index) => {
     const key = item.id || [item.date, item.completedAt || index, item.category, item.taskId].join("|");
@@ -589,7 +596,7 @@ async function syncAccount() {
   if (!accountToken) return;
   const remote = await apiRequest("/api/sync");
   mergeSnapshot(remote);
-  await apiRequest("/api/sync", { method: "PUT", body: JSON.stringify({ tasks, focusLog }) });
+  await apiRequest("/api/sync", { method: "PUT", body: JSON.stringify({ tasks, focusLog, deletedTaskIds }) });
   render();
   $("#account-status").textContent = t("syncDone");
   $("#sync-note").textContent = t("syncDone");
@@ -598,7 +605,7 @@ async function syncAccount() {
 function queueSync() {
   if (!accountToken) return;
   window.clearTimeout(syncTimer);
-  syncTimer = window.setTimeout(() => apiRequest("/api/sync", { method: "PUT", body: JSON.stringify({ tasks, focusLog }) })
+  syncTimer = window.setTimeout(() => apiRequest("/api/sync", { method: "PUT", body: JSON.stringify({ tasks, focusLog, deletedTaskIds }) })
     .then(() => { $("#account-status").textContent = t("syncDone"); })
     .catch(() => { $("#account-status").textContent = t("syncError"); }), 800);
 }
