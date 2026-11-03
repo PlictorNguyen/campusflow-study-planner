@@ -38,6 +38,7 @@ const TEXT = {
     tasksCleared: "{count} completed task{plural} cleared.", storageSaved: "Your tasks are saved on this device.", storageUnavailable: "Storage is unavailable in this browser.", madeForLearning: "Made for focused learning",
     samplePlan: "Map out this week's study goals", sampleProject: "Build a small project feature", sampleReview: "Review notes from last session", noDeadline: "No deadline", dueTodayShort: "Today", dueTomorrow: "Tomorrow", done: "Done", high: "↑ High", low: "↓ Low",
     mainNavigation: "Main navigation", taskViews: "Task views", chooseFocusTask: "Choose a task for this focus session", weekActivity: "This week's task activity", brandHome: "CampusFlow home", markComplete: "Complete task", markIncomplete: "Mark incomplete", deleteTaskLabel: "Delete task",
+    accountSync: "Account & device sync", localOnly: "Local only", apiAddress: "API address", save: "Save", email: "Email", displayName: "Name", password: "Password (10+ characters)", signIn: "Sign in", createAccount: "Create account", signOut: "Sign out", syncNote: "Sign in to sync this browser's tasks to your account.", timetableOcr: "Timetable image reader", ocrNote: "Upload a clear timetable image. Review the extracted lines before adding them.", extractText: "Extract text", ocrPlaceholder: "Extracted timetable text will appear here.", makeTasksFromLines: "Add each line as a task", studyRoom: "Virtual focus room", roomOffline: "Offline", roomNote: "Create or join a room code, then share it with your study group.", joinRoom: "Join", createRoom: "Create room", messagePlaceholder: "Say hello to the room", send: "Send", leaveRoom: "Leave", syncDone: "Account is synced.", syncError: "Sync failed. Check API address and sign in again.", signedIn: "Signed in and synced.", accountCreated: "Account created and synced.", ocrNeedsLogin: "Sign in to use timetable OCR.", ocrFailed: "OCR failed. Check that the API is running and the image is clear.", roomNeedsLogin: "Sign in to join a study room.", roomConnected: "Connected", roomConnecting: "Connecting…", roomDisconnected: "Disconnected",
     documentTitle: "CampusFlow — Study planner", metaDescription: "CampusFlow is a lightweight study planner for organizing assignments, deadlines, and study sessions.", yourProgress: "YOUR PROGRESS", levelAndStreak: "Level & streak", level: "Level", dayStreak: "day streak", studyAnalytics: "STUDY ANALYTICS", yearActivity: "Activity this year", exportData: "Export data", importData: "Import", less: "Less", more: "More", estimateMinutes: "Estimate (minutes)", subtasks: "Subtasks (one per line)", subtasksPlaceholder: "Read chapter\nSolve exercises", enableReminders: "Enable due-date reminders", suggestSubtasks: "Suggest a breakdown", xpNext: "{remaining} XP to next level", categoryStudy: "Study", categoryProject: "Project", categoryPersonal: "Personal", categoryReview: "Review", noStudyTime: "Complete focus sessions to see time by category.", importSuccess: "Data imported.", importFailed: "Could not read that backup.", reminderEnabled: "Due-date reminders enabled.", reminderDenied: "Notifications are blocked by your browser.", subtaskProgress: "{done}/{total} subtasks"
   },
   vi: {
@@ -59,6 +60,7 @@ const TEXT = {
     tasksCleared: "Đã xóa {count} việc hoàn thành.", storageSaved: "Công việc được lưu trên thiết bị này.", storageUnavailable: "Trình duyệt này không thể lưu dữ liệu.", madeForLearning: "Tạo nên cho việc học tập tập trung",
     samplePlan: "Lên kế hoạch học tập tuần này", sampleProject: "Hoàn thiện một tính năng nhỏ", sampleReview: "Ôn lại ghi chú buổi trước", noDeadline: "Chưa có hạn", dueTodayShort: "Hôm nay", dueTomorrow: "Ngày mai", done: "Xong", high: "↑ Cao", low: "↓ Thấp",
     mainNavigation: "Thanh điều hướng chính", taskViews: "Lọc công việc", chooseFocusTask: "Chọn công việc cho phiên tập trung", weekActivity: "Hoạt động công việc trong tuần", brandHome: "Trang chủ CampusFlow", markComplete: "Hoàn thành công việc", markIncomplete: "Đánh dấu chưa hoàn thành", deleteTaskLabel: "Xóa công việc",
+    accountSync: "Tài khoản & đồng bộ thiết bị", localOnly: "Chỉ lưu cục bộ", apiAddress: "Địa chỉ API", save: "Lưu", email: "Email", displayName: "Tên hiển thị", password: "Mật khẩu (ít nhất 10 ký tự)", signIn: "Đăng nhập", createAccount: "Tạo tài khoản", signOut: "Đăng xuất", syncNote: "Đăng nhập để đồng bộ việc từ trình duyệt này lên tài khoản.", timetableOcr: "Đọc ảnh thời khóa biểu", ocrNote: "Tải ảnh rõ nét và xem lại nội dung trích xuất trước khi thêm.", extractText: "Trích xuất chữ", ocrPlaceholder: "Nội dung thời khóa biểu sẽ hiện ở đây.", makeTasksFromLines: "Thêm mỗi dòng thành một việc", studyRoom: "Phòng tập trung trực tuyến", roomOffline: "Ngoại tuyến", roomNote: "Tạo hoặc nhập mã phòng rồi chia sẻ với nhóm học.", joinRoom: "Tham gia", createRoom: "Tạo phòng", messagePlaceholder: "Gửi lời chào vào phòng", send: "Gửi", leaveRoom: "Rời phòng", syncDone: "Tài khoản đã đồng bộ.", syncError: "Đồng bộ thất bại. Kiểm tra API và đăng nhập lại.", signedIn: "Đã đăng nhập và đồng bộ.", accountCreated: "Đã tạo tài khoản và đồng bộ.", ocrNeedsLogin: "Đăng nhập để dùng OCR thời khóa biểu.", ocrFailed: "OCR thất bại. Kiểm tra API và độ rõ của ảnh.", roomNeedsLogin: "Đăng nhập để vào phòng học.", roomConnected: "Đã kết nối", roomConnecting: "Đang kết nối…", roomDisconnected: "Đã ngắt kết nối",
     documentTitle: "CampusFlow — Kế hoạch học tập", metaDescription: "CampusFlow giúp lập kế hoạch học tập, quản lý hạn hoàn thành và theo dõi phiên tập trung.", yourProgress: "TIẾN ĐỘ CỦA BẠN", levelAndStreak: "Cấp độ & chuỗi ngày", level: "Cấp độ", dayStreak: "ngày liên tiếp", studyAnalytics: "PHÂN TÍCH HỌC TẬP", yearActivity: "Hoạt động năm nay", exportData: "Xuất dữ liệu", importData: "Nhập", less: "Ít", more: "Nhiều", estimateMinutes: "Thời lượng dự kiến (phút)", subtasks: "Việc nhỏ (mỗi dòng một việc)", subtasksPlaceholder: "Đọc chương sách\nLàm bài tập", enableReminders: "Bật nhắc hạn công việc", suggestSubtasks: "Gợi ý chia nhỏ", xpNext: "Còn {remaining} XP để lên cấp", categoryStudy: "Học tập", categoryProject: "Dự án", categoryPersonal: "Cá nhân", categoryReview: "Ôn tập", noStudyTime: "Hoàn thành phiên tập trung để xem thời gian theo nhóm việc.", importSuccess: "Đã nhập dữ liệu.", importFailed: "Không đọc được tệp sao lưu.", reminderEnabled: "Đã bật thông báo hạn việc.", reminderDenied: "Trình duyệt đang chặn thông báo.", subtaskProgress: "{done}/{total} việc nhỏ"
   }
 };
@@ -102,6 +104,12 @@ let selectedFocusTaskId = "";
 let sessionsToday = Number(readStorage(`campusflow_sessions_${today}`)) || 0;
 const SESSION_LOG_KEY = "campusflow_focus_log_v1";
 let focusLog = (() => { try { const value = JSON.parse(readStorage(SESSION_LOG_KEY) || "[]"); return Array.isArray(value) ? value : []; } catch { return []; } })();
+let apiBase = readStorage("campusflow_api_url_v1") || window.CAMPUSFLOW_API_URL || "http://localhost:8080";
+let accountToken = readStorage("campusflow_token_v1") || "";
+let roomSocket = null;
+let activeRoomCode = "";
+let stompConnected = false;
+let syncTimer = null;
 
 const $ = (selector) => document.querySelector(selector);
 const taskList = $("#task-list");
@@ -110,8 +118,12 @@ const titleInput = $("#task-title");
 
 function saveTasks() {
   try {
+    const previous = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    const oldById = new Map(previous.map((task) => [task.id, JSON.stringify(task)]));
+    tasks = tasks.map((task) => oldById.get(task.id) === JSON.stringify(task) ? task : { ...task, updatedAt: Date.now() });
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
     $("#list-summary").textContent = t("storageSaved");
+    queueSync();
   } catch {
     $("#list-summary").textContent = t("storageUnavailable");
   }
@@ -366,8 +378,9 @@ function finishTimer() {
     sessionsToday += 1;
     writeStorage(`campusflow_sessions_${today}`, String(sessionsToday));
     const focusTask = tasks.find((task) => task.id === selectedFocusTaskId);
-    focusLog.push({ date: today, minutes: 25, category: focusTask?.category || "Study", taskId: focusTask?.id || null });
+    focusLog.push({ id: crypto.randomUUID(), date: today, minutes: 25, category: focusTask?.category || "Study", taskId: focusTask?.id || null, completedAt: Date.now() });
     writeStorage(SESSION_LOG_KEY, JSON.stringify(focusLog));
+    queueSync();
     renderInsights();
     sendTimerNotification(t("sessionComplete"));
     announce(t("sessionComplete"));
@@ -507,6 +520,8 @@ function applyLanguage() {
   $("#theme-toggle").setAttribute("aria-label", t("switchTheme"));
   $("#theme-toggle").title = t("switchTheme");
   renderHeaderDates();
+  $("#api-url").value = apiBase;
+  $("#account-status").textContent = accountToken ? t("syncDone") : t("localOnly");
   render();
 }
 
@@ -544,5 +559,162 @@ $("#language-toggle").addEventListener("click", () => {
   applyLanguage();
 });
 
+async function apiRequest(path, options = {}) {
+  const headers = new Headers(options.headers || {});
+  if (accountToken) headers.set("Authorization", "Bearer " + accountToken);
+  if (options.body && !(options.body instanceof FormData)) headers.set("Content-Type", "application/json");
+  const response = await fetch(apiBase + path, { ...options, headers });
+  if (!response.ok) throw new Error("API " + response.status);
+  return response.status === 204 ? null : response.json();
+}
+
+function mergeSnapshot(remote) {
+  const localById = new Map(tasks.map((task) => [task.id, task]));
+  (remote.tasks || []).forEach((task) => {
+    const local = localById.get(task.id);
+    if (!local || Number(task.updatedAt || 0) > Number(local.updatedAt || 0)) localById.set(task.id, task);
+  });
+  tasks = [...localById.values()];
+  const logs = new Map();
+  [...focusLog, ...(remote.focusLog || [])].forEach((item, index) => {
+    const key = item.id || [item.date, item.completedAt || index, item.category, item.taskId].join("|");
+    if (!logs.has(key)) logs.set(key, item);
+  });
+  focusLog = [...logs.values()];
+  writeStorage(STORAGE_KEY, JSON.stringify(tasks));
+  writeStorage(SESSION_LOG_KEY, JSON.stringify(focusLog));
+}
+
+async function syncAccount() {
+  if (!accountToken) return;
+  const remote = await apiRequest("/api/sync");
+  mergeSnapshot(remote);
+  await apiRequest("/api/sync", { method: "PUT", body: JSON.stringify({ tasks, focusLog }) });
+  render();
+  $("#account-status").textContent = t("syncDone");
+  $("#sync-note").textContent = t("syncDone");
+}
+
+function queueSync() {
+  if (!accountToken) return;
+  window.clearTimeout(syncTimer);
+  syncTimer = window.setTimeout(() => apiRequest("/api/sync", { method: "PUT", body: JSON.stringify({ tasks, focusLog }) })
+    .then(() => { $("#account-status").textContent = t("syncDone"); })
+    .catch(() => { $("#account-status").textContent = t("syncError"); }), 800);
+}
+
+function appendRoomMessage(message) {
+  const row = document.createElement("p");
+  row.className = "room-message";
+  const title = document.createElement("strong"); title.textContent = message.displayName || "CampusFlow";
+  const body = document.createElement("span"); body.textContent = message.text || ("[" + message.type + "]");
+  row.append(title, body); $("#room-chat").append(row); $("#room-chat").scrollTop = $("#room-chat").scrollHeight;
+}
+
+function stompSend(destination, body) {
+  if (!roomSocket || !stompConnected) return;
+  const payload = JSON.stringify(body);
+  roomSocket.send("SEND\ndestination:" + destination + "\ncontent-type:application/json\ncontent-length:" + new TextEncoder().encode(payload).length + "\n\n" + payload + String.fromCharCode(0));
+}
+
+function connectRoom(code) {
+  if (!accountToken) return announce(t("roomNeedsLogin"));
+  activeRoomCode = code.toUpperCase();
+  $("#room-code").value = activeRoomCode;
+  $("#room-status").textContent = t("roomConnecting");
+  const wsUrl = apiBase.replace(/^http/, "ws") + "/ws";
+  roomSocket = new WebSocket(wsUrl, ["v12.stomp"]);
+  roomSocket.onopen = () => roomSocket.send("CONNECT\naccept-version:1.2\nhost:campusflow\nheart-beat:10000,10000\nAuthorization:Bearer " + accountToken + "\n\n" + String.fromCharCode(0));
+  roomSocket.onmessage = (event) => {
+    const raw = String(event.data);
+    if (raw.startsWith("CONNECTED")) {
+      stompConnected = true; $("#room-status").textContent = t("roomConnected"); $("#room-chat-form").hidden = false;
+      roomSocket.send("SUBSCRIBE\nid:campusflow-room\ndestination:/topic/room/" + activeRoomCode + "\n\n" + String.fromCharCode(0));
+      stompSend("/app/room/" + activeRoomCode, { type: "join", displayName: readStorage("campusflow_display_name_v1") || "Student", text: "joined the room" });
+    } else if (raw.startsWith("MESSAGE")) {
+      const body = raw.split("\n\n").slice(1).join("\n\n").replace(String.fromCharCode(0), "");
+      try { appendRoomMessage(JSON.parse(body)); } catch { /* ignore malformed frames */ }
+    } else if (raw.startsWith("ERROR")) { $("#room-status").textContent = t("roomDisconnected"); }
+  };
+  roomSocket.onclose = () => { stompConnected = false; $("#room-status").textContent = t("roomDisconnected"); $("#room-chat-form").hidden = true; };
+  roomSocket.onerror = () => { $("#room-status").textContent = t("roomDisconnected"); };
+}
+
+$("#save-api-url").addEventListener("click", () => {
+  try {
+    const url = new URL($("#api-url").value.trim());
+    if (!["http:", "https:"].includes(url.protocol)) throw new Error("protocol");
+    apiBase = url.origin.replace(/\/$/, "");
+    writeStorage("campusflow_api_url_v1", apiBase);
+    announce("API: " + apiBase);
+  } catch { announce("Enter a valid http or https API address."); }
+});
+
+let authMode = "login";
+$("#auth-mode").addEventListener("click", () => {
+  authMode = authMode === "login" ? "register" : "login";
+  $("#display-name-wrap").hidden = authMode !== "register";
+  $("#auth-name").required = authMode === "register";
+  $("#auth-password").autocomplete = authMode === "register" ? "new-password" : "current-password";
+  $("#auth-submit").textContent = t(authMode === "register" ? "createAccount" : "signIn");
+  $("#auth-mode").textContent = t(authMode === "register" ? "signIn" : "createAccount");
+});
+$("#auth-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const payload = { email: $("#auth-email").value.trim(), password: $("#auth-password").value };
+  if (authMode === "register") payload.displayName = $("#auth-name").value.trim();
+  try {
+    const result = await apiRequest("/api/auth/" + (authMode === "register" ? "register" : "login"), { method: "POST", body: JSON.stringify(payload) });
+    accountToken = result.token; writeStorage("campusflow_token_v1", accountToken); writeStorage("campusflow_display_name_v1", result.displayName);
+    $("#auth-password").value = ""; $("#auth-submit").hidden = true; $("#auth-mode").hidden = true; $("#sign-out").hidden = false;
+    await syncAccount(); announce(t(authMode === "register" ? "accountCreated" : "signedIn"));
+  } catch { announce(t("syncError")); }
+});
+$("#sign-out").addEventListener("click", () => {
+  if (roomSocket) roomSocket.close(); roomSocket = null; stompConnected = false;
+  accountToken = ""; writeStorage("campusflow_token_v1", ""); $("#auth-submit").hidden = false; $("#auth-mode").hidden = false; $("#sign-out").hidden = true;
+  $("#account-status").textContent = t("localOnly"); $("#sync-note").textContent = t("syncNote");
+});
+
+$("#read-timetable").addEventListener("click", async () => {
+  if (!accountToken) return announce(t("ocrNeedsLogin"));
+  const file = $("#timetable-image").files[0];
+  if (!file) return announce(t("ocrFailed"));
+  const formData = new FormData(); formData.append("image", file);
+  try {
+    const result = await apiRequest("/api/ocr/timetable", { method: "POST", body: formData });
+    $("#ocr-output").value = result.lines.join("\n");
+    announce(t("extractText"));
+  } catch { announce(t("ocrFailed")); }
+});
+$("#add-ocr-tasks").addEventListener("click", () => {
+  const lines = $("#ocr-output").value.split("\n").map((line) => line.trim()).filter((line) => line.length >= 3).slice(0, 30);
+  if (!lines.length) return;
+  lines.forEach((title) => tasks.unshift({ id: crypto.randomUUID(), title: title.slice(0, 90), category: "Study", priority: "normal", dueDate: "", estimateMinutes: 60, subtasks: [], completed: false, createdAt: Date.now(), updatedAt: Date.now() }));
+  saveTasks(); render(); announce(t("addedTask"));
+});
+
+$("#room-create").addEventListener("click", () => {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; const bytes = new Uint8Array(8); crypto.getRandomValues(bytes);
+  const code = Array.from(bytes, (byte) => chars[byte % chars.length]).join("");
+  $("#room-chat").replaceChildren(); connectRoom(code);
+});
+$("#room-join").addEventListener("click", () => {
+  const code = $("#room-code").value.trim().toUpperCase();
+  if (!/^[A-Z0-9]{6,12}$/.test(code)) return announce("Room code must be 6–12 letters or numbers.");
+  $("#room-chat").replaceChildren(); connectRoom(code);
+});
+$("#room-chat-form").addEventListener("submit", (event) => {
+  event.preventDefault(); const text = $("#room-message").value.trim(); if (!text) return;
+  stompSend("/app/room/" + activeRoomCode, { type: "chat", displayName: readStorage("campusflow_display_name_v1") || "Student", text });
+  $("#room-message").value = "";
+});
+$("#room-leave").addEventListener("click", () => {
+  if (stompConnected) stompSend("/app/room/" + activeRoomCode, { type: "leave", displayName: readStorage("campusflow_display_name_v1") || "Student", text: "left the room" });
+  if (roomSocket) roomSocket.close(); roomSocket = null; stompConnected = false; $("#room-chat-form").hidden = true; $("#room-status").textContent = t("roomOffline");
+});
+
 if (readStorage(THEME_KEY) === "dark") document.body.classList.add("dark");
+if (accountToken) { $("#auth-submit").hidden = true; $("#auth-mode").hidden = true; $("#sign-out").hidden = false; }
 applyLanguage();
+if (accountToken) syncAccount().catch(() => { $("#account-status").textContent = t("syncError"); });

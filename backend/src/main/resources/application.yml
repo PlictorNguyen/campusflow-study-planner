@@ -1,0 +1,25 @@
+server:
+  port: ${PORT:8080}
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/campusflow}
+    username: ${DATABASE_USER:campusflow}
+    password: ${DATABASE_PASSWORD:campusflow}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+app:
+  jwt:
+    secret: ${JWT_SECRET:}
+    expiration-hours: ${JWT_EXPIRATION_HOURS:168}
+  cors:
+    allowed-origin: ${APP_ORIGIN:http://localhost:8000}
