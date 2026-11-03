@@ -13,14 +13,30 @@ CampusFlow is a responsive study planner for keeping assignments, project work, 
 - Link a focus session to an open task and count completed focus sessions each day
 - Switch between light and dark themes
 - Switch the interface between English and Vietnamese; the choice is remembered in the browser
-- Save tasks, theme preference, and daily focus-session counts in the browser with `localStorage`
+- Break tasks into checkable subtasks and record an estimated duration
+- Track completed focus sessions by date and task category, with a year activity heatmap
+- Earn XP, levels, and a daily study streak from completed tasks and focus sessions
+- Export and restore a JSON backup of tasks and focus history
+- Opt in to browser notifications for tasks due today
+- Install as a PWA and reopen its app shell offline after the first visit
+- Save tasks, theme, language, and focus history in the current browser with `localStorage`
 - Responsive layout and keyboard-accessible controls
 
 ## Run locally
 
-Open `index.html` in a modern browser. No installation is required.
+For the full PWA and notification features, serve the folder over localhost (service workers and notifications are unavailable from `file://`):
 
-The first visit includes a few sample tasks so the dashboard is easy to explore. Tasks stay in the current browser and are not uploaded to a server.
+```bash
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000`. No package installation or build step is required.
+
+The first visit includes a few sample tasks so the dashboard is easy to explore. Data stays in the current browser and is not uploaded to a server. Export a backup before clearing browser data. Due-date notifications are checked while the app is open; they are not background push notifications.
+
+## Current scope
+
+The app is still local-first. Cross-device account sync, Google sign-in, timetable OCR, and shared live study rooms need a deployed backend and provider credentials. The PWA uses a service worker for the app shell; it does not yet provide server push notifications.
 
 ## Built with
 
