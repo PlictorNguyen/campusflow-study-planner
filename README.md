@@ -12,6 +12,7 @@ CampusFlow is a responsive study planner for keeping assignments, project work, 
 - Run 25-minute focus sessions and 5-minute breaks with a circular timer
 - Link a focus session to an open task and count completed focus sessions each day
 - Switch between light and dark themes
+- Switch the interface between English and Vietnamese; the choice is remembered in the browser
 - Save tasks, theme preference, and daily focus-session counts in the browser with `localStorage`
 - Responsive layout and keyboard-accessible controls
 
