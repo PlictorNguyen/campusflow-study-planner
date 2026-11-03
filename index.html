@@ -16,17 +16,19 @@
   <body>
     <div class="app-shell">
       <aside class="sidebar" aria-label="Main navigation" data-i18n-aria="mainNavigation">
-        <a class="brand" href="#home" aria-label="CampusFlow home" data-i18n-aria="brandHome">
+        <a class="brand" href="#dashboard" aria-label="CampusFlow home" data-i18n-aria="brandHome">
           <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
           <span>campus<span class="brand-light">flow</span></span>
         </a>
 
         <div class="workspace-label" data-i18n="workspaceLabel">WORKSPACE</div>
-        <nav class="nav-list" aria-label="Task views" data-i18n-aria="taskViews">
-          <button class="nav-item is-active" data-filter="all" type="button"><span class="nav-icon">▦</span><span data-i18n="allTasks">All tasks</span><span class="nav-count" id="all-count">0</span></button>
-          <button class="nav-item" data-filter="today" type="button"><span class="nav-icon">◷</span><span data-i18n="today">Today</span><span class="nav-count" id="today-count">0</span></button>
-          <button class="nav-item" data-filter="upcoming" type="button"><span class="nav-icon">▣</span><span data-i18n="upcoming">Upcoming</span></button>
-          <button class="nav-item" data-filter="completed" type="button"><span class="nav-icon">✓</span><span data-i18n="completed">Completed</span></button>
+        <nav class="nav-list page-navigation" aria-label="Page navigation" data-i18n-aria="pageNavigation">
+          <a class="nav-item" href="#dashboard" data-page-link="dashboard"><span class="nav-icon">⌂</span><span data-i18n="dashboardPage">Overview</span></a>
+          <a class="nav-item" href="#tasks" data-page-link="tasks"><span class="nav-icon">▦</span><span data-i18n="tasksPage">Tasks</span><span class="nav-count" id="all-count">0</span></a>
+          <a class="nav-item" href="#calendar" data-page-link="calendar"><span class="nav-icon">▣</span><span data-i18n="calendarPage">Calendar</span></a>
+          <a class="nav-item" href="#focus" data-page-link="focus"><span class="nav-icon">◷</span><span data-i18n="focusPage">Focus</span></a>
+          <a class="nav-item" href="#rooms" data-page-link="rooms"><span class="nav-icon">◉</span><span data-i18n="roomsPage">Study rooms</span></a>
+          <a class="nav-item" href="#settings" data-page-link="settings"><span class="nav-icon">⚙</span><span data-i18n="settingsPage">Account & settings</span></a>
         </nav>
 
         <div class="sidebar-bottom">
@@ -45,7 +47,7 @@
 
       <main class="main-content" id="home">
         <header class="topbar">
-          <div class="breadcrumbs"><span data-i18n="workspaceLabel">Workspace</span><span class="crumb-divider">/</span><strong data-i18n="overview">Overview</strong></div>
+          <div class="breadcrumbs"><span data-i18n="workspaceLabel">Workspace</span><span class="crumb-divider">/</span><strong id="page-title" data-i18n="dashboardPage">Overview</strong></div>
           <div class="topbar-actions">
             <span class="today-label" id="header-date"></span>
             <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch language to Vietnamese" title="Switch language">VI</button>
@@ -54,7 +56,7 @@
         </header>
 
         <div class="content-wrap">
-          <section class="welcome-row">
+          <section class="welcome-row" data-pages="dashboard">
             <div>
               <p class="eyebrow" id="welcome-date" data-i18n="yourStudySpace">YOUR STUDY SPACE</p>
               <h1><span class="hero-lead" data-i18n="heroLead">Make room for</span> <span class="hero-accent" data-i18n="heroAccent">what matters.</span></h1>
@@ -63,7 +65,7 @@
             <button class="primary-button" id="focus-add" type="button"><span aria-hidden="true">＋</span> <span data-i18n="addTask">Add a task</span></button>
           </section>
 
-          <section class="stats-grid" aria-label="Task summary" data-i18n-aria="taskSummary">
+          <section class="stats-grid" aria-label="Task summary" data-i18n-aria="taskSummary" data-pages="dashboard">
             <article class="stat-card">
               <div class="stat-heading"><span data-i18n="openTasks">Open tasks</span><span class="stat-icon mint">▦</span></div>
               <div class="stat-value" id="open-stat">0</div>
@@ -81,19 +83,19 @@
             </article>
           </section>
 
-          <section class="insights-grid" aria-label="Study insights">
+          <section class="insights-grid" aria-label="Study insights" data-pages="dashboard calendar">
             <article class="insight-card card-panel"><div class="insight-title"><span>✦</span><div><p class="eyebrow" data-i18n="yourProgress">YOUR PROGRESS</p><h2 data-i18n="levelAndStreak">Level & streak</h2></div></div><div class="xp-row"><strong id="level-value">1</strong><span data-i18n="level">Level</span><span class="streak-badge">🔥 <strong id="streak-value">0</strong> <span data-i18n="dayStreak">day streak</span></span><span class="xp-total"><strong id="xp-value">0</strong> XP</span></div><div class="xp-track"><span id="xp-bar"></span></div><p id="xp-caption" class="insight-caption"></p></article>
             <article class="insight-card card-panel"><div class="insight-title"><span>▦</span><div><p class="eyebrow" data-i18n="studyAnalytics">STUDY ANALYTICS</p><h2 data-i18n="yearActivity">Activity this year</h2></div><button class="text-button" id="export-data" type="button" data-i18n="exportData">Export data</button><label class="import-button">↥ <span data-i18n="importData">Import</span><input id="import-data" type="file" accept="application/json" hidden /></label></div><div class="heatmap-wrap"><div id="heatmap" class="heatmap" role="img"></div><div class="heatmap-legend"><span data-i18n="less">Less</span><i></i><i></i><i></i><i></i><span data-i18n="more">More</span></div></div><div class="category-time" id="category-time"></div></article>
           </section>
 
           <section class="cloud-tools" aria-label="Connected study tools">
-            <details class="cloud-card card-panel" id="account-panel"><summary><span data-i18n="accountSync">Account & device sync</span><span class="cloud-status" id="account-status" data-i18n="localOnly">Local only</span></summary><div class="cloud-body"><label class="field-label" for="api-url" data-i18n="apiAddress">API address</label><div class="inline-controls"><input class="text-input" id="api-url" type="url" value="http://localhost:8080" /><button class="secondary-button" id="save-api-url" type="button" data-i18n="save">Save</button></div><form id="auth-form"><label class="field-label" for="auth-email" data-i18n="email">Email</label><input class="text-input" id="auth-email" type="email" required autocomplete="email" /><div id="display-name-wrap" hidden><label class="field-label" for="auth-name" data-i18n="displayName">Name</label><input class="text-input" id="auth-name" type="text" minlength="2" maxlength="80" autocomplete="name" /></div><label class="field-label" for="auth-password" data-i18n="password">Password (10+ characters)</label><input class="text-input" id="auth-password" type="password" minlength="10" required autocomplete="current-password" /><div class="inline-controls"><button class="primary-button" id="auth-submit" type="submit" data-i18n="signIn">Sign in</button><button class="text-button" id="auth-mode" type="button" data-i18n="createAccount">Create account</button><button class="text-button" id="sign-out" type="button" hidden data-i18n="signOut">Sign out</button></div></form><p class="cloud-note" id="sync-note" data-i18n="syncNote">Sign in to sync this browser's tasks to your account.</p></div></details>
-            <details class="cloud-card card-panel"><summary><span data-i18n="timetableOcr">Timetable image reader</span><span class="cloud-status">OCR</span></summary><div class="cloud-body"><p class="cloud-note" data-i18n="ocrNote">Upload a clear timetable image. Review the extracted lines before adding them.</p><div class="inline-controls"><input id="timetable-image" type="file" accept="image/*" /><button class="secondary-button" id="read-timetable" type="button" data-i18n="extractText">Extract text</button></div><textarea class="text-input ocr-output" id="ocr-output" rows="5" data-i18n-placeholder="ocrPlaceholder" placeholder="Extracted timetable text will appear here."></textarea><button class="text-button" id="add-ocr-tasks" type="button" data-i18n="makeTasksFromLines">Add each line as a task</button></div></details>
-            <details class="cloud-card card-panel"><summary><span data-i18n="studyRoom">Virtual focus room</span><span class="cloud-status" id="room-status" data-i18n="roomOffline">Offline</span></summary><div class="cloud-body"><p class="cloud-note" data-i18n="roomNote">Create or join a room code, then share it with your study group.</p><div class="inline-controls"><input class="text-input" id="room-code" maxlength="12" placeholder="ROOM CODE" /><button class="secondary-button" id="room-join" type="button" data-i18n="joinRoom">Join</button><button class="text-button" id="room-create" type="button" data-i18n="createRoom">Create room</button></div><div class="room-chat" id="room-chat" aria-live="polite"></div><form id="room-chat-form" class="inline-controls" hidden><input class="text-input" id="room-message" maxlength="300" data-i18n-placeholder="messagePlaceholder" placeholder="Say hello to the room" /><button class="secondary-button" type="submit" data-i18n="send">Send</button><button class="text-button" id="room-leave" type="button" data-i18n="leaveRoom">Leave</button></form></div></details>
+            <details class="cloud-card card-panel" id="account-panel" data-pages="settings"><summary><span data-i18n="accountSync">Account & device sync</span><span class="cloud-status" id="account-status" data-i18n="localOnly">Local only</span></summary><div class="cloud-body"><label class="field-label" for="api-url" data-i18n="apiAddress">API address</label><div class="inline-controls"><input class="text-input" id="api-url" type="url" value="http://localhost:8080" /><button class="secondary-button" id="save-api-url" type="button" data-i18n="save">Save</button></div><form id="auth-form"><label class="field-label" for="auth-email" data-i18n="email">Email</label><input class="text-input" id="auth-email" type="email" required autocomplete="email" /><div id="display-name-wrap" hidden><label class="field-label" for="auth-name" data-i18n="displayName">Name</label><input class="text-input" id="auth-name" type="text" minlength="2" maxlength="80" autocomplete="name" /></div><label class="field-label" for="auth-password" data-i18n="password">Password (10+ characters)</label><input class="text-input" id="auth-password" type="password" minlength="10" required autocomplete="current-password" /><div class="inline-controls"><button class="primary-button" id="auth-submit" type="submit" data-i18n="signIn">Sign in</button><button class="text-button" id="auth-mode" type="button" data-i18n="createAccount">Create account</button><button class="text-button" id="sign-out" type="button" hidden data-i18n="signOut">Sign out</button></div></form><p class="cloud-note" id="sync-note" data-i18n="syncNote">Sign in to sync this browser's tasks to your account.</p></div></details>
+            <details class="cloud-card card-panel" data-pages="calendar"><summary><span data-i18n="timetableOcr">Timetable image reader</span><span class="cloud-status">OCR</span></summary><div class="cloud-body"><p class="cloud-note" data-i18n="ocrNote">Upload a clear timetable image. Review the extracted lines before adding them.</p><div class="inline-controls"><input id="timetable-image" type="file" accept="image/*" /><button class="secondary-button" id="read-timetable" type="button" data-i18n="extractText">Extract text</button></div><textarea class="text-input ocr-output" id="ocr-output" rows="5" data-i18n-placeholder="ocrPlaceholder" placeholder="Extracted timetable text will appear here."></textarea><button class="text-button" id="add-ocr-tasks" type="button" data-i18n="makeTasksFromLines">Add each line as a task</button></div></details>
+            <details class="cloud-card card-panel" data-pages="rooms"><summary><span data-i18n="studyRoom">Virtual focus room</span><span class="cloud-status" id="room-status" data-i18n="roomOffline">Offline</span></summary><div class="cloud-body"><p class="cloud-note" data-i18n="roomNote">Create or join a room code, then share it with your study group.</p><div class="inline-controls"><input class="text-input" id="room-code" maxlength="12" placeholder="ROOM CODE" /><button class="secondary-button" id="room-join" type="button" data-i18n="joinRoom">Join</button><button class="text-button" id="room-create" type="button" data-i18n="createRoom">Create room</button></div><div class="room-chat" id="room-chat" aria-live="polite"></div><form id="room-chat-form" class="inline-controls" hidden><input class="text-input" id="room-message" maxlength="300" data-i18n-placeholder="messagePlaceholder" placeholder="Say hello to the room" /><button class="secondary-button" type="submit" data-i18n="send">Send</button><button class="text-button" id="room-leave" type="button" data-i18n="leaveRoom">Leave</button></form></div></details>
           </section>
 
           <div class="dashboard-grid">
-            <section class="tasks-panel card-panel" aria-labelledby="tasks-heading">
+            <section class="tasks-panel card-panel" data-pages="tasks" aria-labelledby="tasks-heading">
               <div class="panel-header">
                 <div><p class="eyebrow" data-i18n="yourPlan">YOUR PLAN</p><h2 id="tasks-heading"><span data-i18n="myTasks">My tasks</span> <span class="heading-count" id="visible-count">0</span></h2></div>
                 <label class="search-box"><span aria-hidden="true">⌕</span><input id="task-search" type="search" placeholder="Search tasks" aria-label="Search tasks" data-i18n-placeholder="searchTasks" data-i18n-aria="searchTasks" /></label>
@@ -115,7 +117,7 @@
             </section>
 
             <aside class="right-column" aria-label="Study planning tools">
-              <section class="new-task-panel card-panel" id="new-task-panel" aria-labelledby="new-task-heading">
+              <section class="new-task-panel card-panel" data-pages="tasks" id="new-task-panel" aria-labelledby="new-task-heading">
                 <div class="form-heading"><div><p class="eyebrow" data-i18n="planAhead">PLAN AHEAD</p><h2 id="new-task-heading" data-i18n="addTask">Add a task</h2></div><span class="form-spark" aria-hidden="true">✳</span></div>
                 <form id="task-form">
                   <label class="field-label" for="task-title" data-i18n="taskTitleLabel">What needs doing?</label>
@@ -133,14 +135,14 @@
                 </form>
               </section>
 
-              <section class="week-card card-panel" aria-labelledby="week-heading">
+              <section class="week-card card-panel" data-pages="dashboard calendar" aria-labelledby="week-heading">
                 <div class="week-heading"><div><p class="eyebrow" data-i18n="freshStart">A FRESH START</p><h2 id="week-heading" data-i18n="thisWeek">This week</h2></div><span class="week-icon" aria-hidden="true">✦</span></div>
                 <p class="week-copy" id="week-copy">Progress is built one task at a time.</p>
                 <div class="week-days" id="week-days" aria-label="This week's task activity" data-i18n-aria="weekActivity"></div>
                 <div class="week-legend"><span><i class="legend-dot done-dot"></i><span data-i18n="completed">Completed</span></span><span><i class="legend-dot todo-dot"></i><span data-i18n="dueDate">Due date</span></span></div>
               </section>
 
-              <section class="timer-card card-panel" aria-labelledby="timer-heading">
+              <section class="timer-card card-panel" data-pages="focus" aria-labelledby="timer-heading">
                 <div class="week-heading"><div><p class="eyebrow" data-i18n="focusSession">FOCUS SESSION</p><h2 id="timer-heading" data-i18n="pomodoroTimer">Pomodoro timer</h2></div><span class="timer-icon" aria-hidden="true">◷</span></div>
                 <label class="field-label focus-task-label" for="focus-task" data-i18n="focusOnTask">Focus on a task</label>
                 <select class="text-input" id="focus-task" aria-label="Choose a task for this focus session" data-i18n-aria="chooseFocusTask"></select>
