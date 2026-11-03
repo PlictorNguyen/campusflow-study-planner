@@ -48,7 +48,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 .main-content { min-width: 0; }
 .topbar { height: 74px; padding: 0 clamp(24px, 4.3vw, 64px); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.64); }
 .breadcrumbs { display: flex; gap: 10px; color: var(--muted); font-size: 12px; }.breadcrumbs strong { color: var(--ink-soft); font-weight: 600; }.crumb-divider { color: #c3ccc8; }
-.topbar-actions { display: flex; align-items: center; gap: 18px; }.today-label { color: var(--ink-soft); font-size: 11px; }
+.topbar-actions { display: flex; align-items: center; gap: 12px; }.today-label { color: var(--ink-soft); font-size: 11px; }
+.language-toggle { min-width: 36px; height: 32px; padding: 0 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink-soft); font-size: 10px; font-weight: 700; letter-spacing: .3px; }
+.language-toggle:hover { border-color: #a8cfc1; color: var(--green-dark); }
 .icon-button { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--ink-soft); font-size: 18px; }
 .content-wrap { max-width: 1450px; padding: 43px clamp(24px, 4.3vw, 64px) 20px; margin: 0 auto; }
 .welcome-row { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
@@ -56,6 +58,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 h1, h2, h3, p { overflow-wrap: anywhere; }
 h1 { margin: 0; font: 700 clamp(25px, 3vw, 34px) "Manrope", sans-serif; letter-spacing: -1.2px; }
 h1 span { color: var(--green); }
+h1 .hero-lead { color: var(--ink); }
 .welcome-copy { margin: 9px 0 0; color: var(--muted); font-size: 13px; }
 .primary-button { min-height: 41px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--green); border-radius: 8px; background: var(--green); color: #fff; font-size: 12px; font-weight: 700; box-shadow: 0 5px 12px rgba(22,139,114,.13); transition: transform .16s, background .16s; }
 .primary-button:hover { background: var(--green-dark); transform: translateY(-1px); }
