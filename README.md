@@ -14,6 +14,7 @@ CampusFlow is a responsive study planner for keeping assignments, project work, 
 - Switch between light and dark themes
 - Switch the interface between English and Vietnamese; the choice is remembered in the browser
 - Break tasks into checkable subtasks and record an estimated duration
+- Generate an editable subtask breakdown from a task title and time estimate
 - Track completed focus sessions by date and task category, with a year activity heatmap
 - Earn XP, levels, and a daily study streak from completed tasks and focus sessions
 - Export and restore a JSON backup of tasks and focus history
@@ -32,7 +33,7 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000`. No package installation or build step is required.
 
-The first visit includes a few sample tasks so the dashboard is easy to explore. Data stays in the current browser and is not uploaded to a server. Export a backup before clearing browser data. Due-date notifications are checked while the app is open; they are not background push notifications.
+The first visit includes a few sample tasks so the dashboard is easy to explore. Data stays in the current browser and is not uploaded to a server. Export a backup before clearing browser data. Due-date and Pomodoro notifications work while the app is open; they are not background push notifications.
 
 ## Current scope
 
