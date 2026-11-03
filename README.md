@@ -36,7 +36,7 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000`. No package installation or build step is required.
 
-The first visit includes a few sample tasks so the dashboard is easy to explore. Data stays in the current browser and is not uploaded to a server. Export a backup before clearing browser data. Due-date and Pomodoro notifications work while the app is open; they are not background push notifications.
+The first visit includes a few sample tasks so the dashboard is easy to explore. While signed out, data stays in the current browser. After sign-in, tasks, deletion markers, and focus history sync to the configured API. Export a backup before clearing browser data. Due-date and Pomodoro notifications work while the app is open; they are not background push notifications.
 
 ## Start the account, OCR, and room API
 
