@@ -527,6 +527,9 @@ function applyLanguage() {
   renderHeaderDates();
   $("#api-url").value = apiBase;
   $("#account-status").textContent = accountToken ? t("syncDone") : t("localOnly");
+  if (accountToken) $("#sync-note").textContent = t("syncDone");
+  $("#auth-submit").textContent = t(authMode === "register" ? "createAccount" : "signIn");
+  $("#auth-mode").textContent = t(authMode === "register" ? "signIn" : "createAccount");
   render();
 }
 
