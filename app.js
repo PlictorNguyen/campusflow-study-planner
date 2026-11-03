@@ -20,7 +20,7 @@ function shiftDate(days) {
 
 const TEXT = {
   en: {
-    workspaceLabel: "Workspace", allTasks: "All tasks", today: "Today", upcoming: "Upcoming", completed: "Completed",
+    workspaceLabel: "Workspace", dashboardPage: "Overview", tasksPage: "Tasks", calendarPage: "Calendar", focusPage: "Focus", roomsPage: "Study rooms", settingsPage: "Account & settings", pageNavigation: "Page navigation", allTasks: "All tasks", today: "Today", upcoming: "Upcoming", completed: "Completed",
     smallSteps: "Small steps add up.", focusCopy: "Keep your next goal clear and make a little progress today.", studySpace: "My study space", personalPlanner: "Personal planner", overview: "Overview",
     switchTheme: "Switch color theme", switchToVi: "Switch language to Vietnamese", switchToEn: "Switch language to English", yourStudySpace: "YOUR STUDY SPACE",
     heroLead: "Make room for", heroAccent: "what matters.", heroCopy: "A clear plan turns busy days into steady progress.", addTask: "Add a task", taskSummary: "Task summary",
@@ -42,7 +42,7 @@ const TEXT = {
     documentTitle: "CampusFlow — Study planner", metaDescription: "CampusFlow is a lightweight study planner for organizing assignments, deadlines, and study sessions.", yourProgress: "YOUR PROGRESS", levelAndStreak: "Level & streak", level: "Level", dayStreak: "day streak", studyAnalytics: "STUDY ANALYTICS", yearActivity: "Activity this year", exportData: "Export data", importData: "Import", less: "Less", more: "More", estimateMinutes: "Estimate (minutes)", subtasks: "Subtasks (one per line)", subtasksPlaceholder: "Read chapter\nSolve exercises", enableReminders: "Enable due-date reminders", suggestSubtasks: "Suggest a breakdown", xpNext: "{remaining} XP to next level", categoryStudy: "Study", categoryProject: "Project", categoryPersonal: "Personal", categoryReview: "Review", noStudyTime: "Complete focus sessions to see time by category.", importSuccess: "Data imported.", importFailed: "Could not read that backup.", reminderEnabled: "Due-date reminders enabled.", reminderDenied: "Notifications are blocked by your browser.", subtaskProgress: "{done}/{total} subtasks"
   },
   vi: {
-    workspaceLabel: "Không gian làm việc", allTasks: "Tất cả việc", today: "Hôm nay", upcoming: "Sắp tới", completed: "Đã hoàn thành",
+    workspaceLabel: "Không gian làm việc", dashboardPage: "Tổng quan", tasksPage: "Công việc", calendarPage: "Lịch học", focusPage: "Tập trung", roomsPage: "Phòng học", settingsPage: "Tài khoản & cài đặt", pageNavigation: "Điều hướng trang", allTasks: "Tất cả việc", today: "Hôm nay", upcoming: "Sắp tới", completed: "Đã hoàn thành",
     smallSteps: "Từng bước nhỏ tạo nên kết quả.", focusCopy: "Giữ mục tiêu tiếp theo rõ ràng và tiến thêm một chút hôm nay.", studySpace: "Góc học tập của tôi", personalPlanner: "Kế hoạch cá nhân", overview: "Tổng quan",
     switchTheme: "Đổi giao diện sáng/tối", switchToVi: "Chuyển ngôn ngữ sang tiếng Việt", switchToEn: "Chuyển ngôn ngữ sang tiếng Anh", yourStudySpace: "GÓC HỌC TẬP CỦA BẠN",
     heroLead: "Dành thời gian cho", heroAccent: "điều quan trọng.", heroCopy: "Kế hoạch rõ ràng giúp mỗi ngày bận rộn tiến gần hơn đến mục tiêu.", addTask: "Thêm công việc", taskSummary: "Tóm tắt công việc",
@@ -313,7 +313,6 @@ function render() {
   $("#progress-caption").textContent = t("progressCaption", { done: completedThisWeek, total: weeklyTasks.length });
   $("#progress-bar").style.width = `${Math.min(progress, 100)}%`;
   $("#all-count").textContent = String(open);
-  $("#today-count").textContent = String(dueToday);
   $("#visible-count").textContent = String(visible.length);
   $("#clear-completed").hidden = !tasks.some((task) => task.completed);
   $("#week-copy").textContent = weeklyTasks.length ? t("weekProgress", { done: completedThisWeek, total: weeklyTasks.length }) : t("weekEmpty");
@@ -456,7 +455,7 @@ function setFilter(filter) {
 
 document.querySelectorAll("[data-filter]").forEach((button) => button.addEventListener("click", () => setFilter(button.dataset.filter)));
 $("#task-search").addEventListener("input", (event) => { searchQuery = event.target.value; render(); });
-$("#focus-add").addEventListener("click", () => { titleInput.focus(); $("#new-task-panel").scrollIntoView({ behavior: "smooth", block: "center" }); });
+$("#focus-add").addEventListener("click", () => { location.hash = "#tasks"; window.setTimeout(() => { titleInput.focus(); $("#new-task-panel").scrollIntoView({ behavior: "smooth", block: "center" }); }, 0); });
 $("#empty-add").addEventListener("click", () => titleInput.focus());
 $("#focus-task").addEventListener("change", (event) => { selectedFocusTaskId = event.target.value; });
 document.querySelectorAll(".timer-mode").forEach((button) => button.addEventListener("click", () => setTimerMode(button.dataset.mode)));
@@ -510,6 +509,35 @@ function renderHeaderDates() {
   $("#welcome-date").textContent = new Intl.DateTimeFormat(dateLocale(), { weekday: "long", month: "long", day: "numeric" }).format(now).toUpperCase();
 }
 
+const PAGE_TITLES = { dashboard: "dashboardPage", tasks: "tasksPage", calendar: "calendarPage", focus: "focusPage", rooms: "roomsPage", settings: "settingsPage" };
+function renderPage() {
+  const candidate = location.hash.slice(1);
+  const page = Object.hasOwn(PAGE_TITLES, candidate) ? candidate : "dashboard";
+  document.body.dataset.page = page;
+  document.querySelectorAll("[data-pages]").forEach((element) => {
+    element.hidden = !element.dataset.pages.split(/\s+/).includes(page);
+  });
+  document.querySelectorAll("[data-page-link]").forEach((link) => {
+    const active = link.dataset.pageLink === page;
+    link.classList.toggle("is-active", active);
+    if (active) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
+  });
+  const grid = $(".dashboard-grid");
+  const visibleGridPanels = [...grid.querySelectorAll("[data-pages]")].filter((element) => !element.hidden);
+  grid.hidden = visibleGridPanels.length === 0;
+  grid.classList.toggle("single-panel", visibleGridPanels.length === 1);
+  const right = $(".right-column");
+  right.hidden = ![...right.querySelectorAll("[data-pages]")].some((element) => !element.hidden);
+  const cloudTools = $(".cloud-tools");
+  const visibleCloudPanels = [...cloudTools.querySelectorAll("[data-pages]")].filter((element) => !element.hidden);
+  cloudTools.hidden = visibleCloudPanels.length === 0;
+  cloudTools.classList.toggle("single-tool", visibleCloudPanels.length === 1);
+  cloudTools.querySelectorAll("details[data-pages]").forEach((panel) => { panel.open = !panel.hidden; });
+  $("#page-title").textContent = t(PAGE_TITLES[page]);
+  document.title = "CampusFlow — " + t(PAGE_TITLES[page]);
+}
+window.addEventListener("hashchange", renderPage);
+
 function applyLanguage() {
   document.documentElement.lang = currentLanguage;
   document.title = t("documentTitle");
@@ -525,6 +553,7 @@ function applyLanguage() {
   $("#theme-toggle").setAttribute("aria-label", t("switchTheme"));
   $("#theme-toggle").title = t("switchTheme");
   renderHeaderDates();
+  renderPage();
   $("#api-url").value = apiBase;
   $("#account-status").textContent = accountToken ? t("syncDone") : t("localOnly");
   if (accountToken) $("#sync-note").textContent = t("syncDone");
