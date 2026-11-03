@@ -38,7 +38,7 @@ const TEXT = {
     tasksCleared: "{count} completed task{plural} cleared.", storageSaved: "Your tasks are saved on this device.", storageUnavailable: "Storage is unavailable in this browser.", madeForLearning: "Made for focused learning",
     samplePlan: "Map out this week's study goals", sampleProject: "Build a small project feature", sampleReview: "Review notes from last session", noDeadline: "No deadline", dueTodayShort: "Today", dueTomorrow: "Tomorrow", done: "Done", high: "↑ High", low: "↓ Low",
     mainNavigation: "Main navigation", taskViews: "Task views", chooseFocusTask: "Choose a task for this focus session", weekActivity: "This week's task activity", brandHome: "CampusFlow home", markComplete: "Complete task", markIncomplete: "Mark incomplete", deleteTaskLabel: "Delete task",
-    documentTitle: "CampusFlow — Study planner", metaDescription: "CampusFlow is a lightweight study planner for organizing assignments, deadlines, and study sessions.", yourProgress: "YOUR PROGRESS", levelAndStreak: "Level & streak", level: "Level", dayStreak: "day streak", studyAnalytics: "STUDY ANALYTICS", yearActivity: "Activity this year", exportData: "Export data", importData: "Import", less: "Less", more: "More", estimateMinutes: "Estimate (minutes)", subtasks: "Subtasks (one per line)", subtasksPlaceholder: "Read chapter\\nSolve exercises", enableReminders: "Enable due-date reminders", xpNext: "{remaining} XP to next level", categoryStudy: "Study", categoryProject: "Project", categoryPersonal: "Personal", categoryReview: "Review", noStudyTime: "Complete focus sessions to see time by category.", importSuccess: "Data imported.", importFailed: "Could not read that backup.", reminderEnabled: "Due-date reminders enabled.", reminderDenied: "Notifications are blocked by your browser.", subtaskProgress: "{done}/{total} subtasks"
+    documentTitle: "CampusFlow — Study planner", metaDescription: "CampusFlow is a lightweight study planner for organizing assignments, deadlines, and study sessions.", yourProgress: "YOUR PROGRESS", levelAndStreak: "Level & streak", level: "Level", dayStreak: "day streak", studyAnalytics: "STUDY ANALYTICS", yearActivity: "Activity this year", exportData: "Export data", importData: "Import", less: "Less", more: "More", estimateMinutes: "Estimate (minutes)", subtasks: "Subtasks (one per line)", subtasksPlaceholder: "Read chapter\\nSolve exercises", enableReminders: "Enable due-date reminders", suggestSubtasks: "Suggest a breakdown", xpNext: "{remaining} XP to next level", categoryStudy: "Study", categoryProject: "Project", categoryPersonal: "Personal", categoryReview: "Review", noStudyTime: "Complete focus sessions to see time by category.", importSuccess: "Data imported.", importFailed: "Could not read that backup.", reminderEnabled: "Due-date reminders enabled.", reminderDenied: "Notifications are blocked by your browser.", subtaskProgress: "{done}/{total} subtasks"
   },
   vi: {
     workspaceLabel: "Không gian làm việc", allTasks: "Tất cả việc", today: "Hôm nay", upcoming: "Sắp tới", completed: "Đã hoàn thành",
@@ -59,7 +59,7 @@ const TEXT = {
     tasksCleared: "Đã xóa {count} việc hoàn thành.", storageSaved: "Công việc được lưu trên thiết bị này.", storageUnavailable: "Trình duyệt này không thể lưu dữ liệu.", madeForLearning: "Tạo nên cho việc học tập tập trung",
     samplePlan: "Lên kế hoạch học tập tuần này", sampleProject: "Hoàn thiện một tính năng nhỏ", sampleReview: "Ôn lại ghi chú buổi trước", noDeadline: "Chưa có hạn", dueTodayShort: "Hôm nay", dueTomorrow: "Ngày mai", done: "Xong", high: "↑ Cao", low: "↓ Thấp",
     mainNavigation: "Thanh điều hướng chính", taskViews: "Lọc công việc", chooseFocusTask: "Chọn công việc cho phiên tập trung", weekActivity: "Hoạt động công việc trong tuần", brandHome: "Trang chủ CampusFlow", markComplete: "Hoàn thành công việc", markIncomplete: "Đánh dấu chưa hoàn thành", deleteTaskLabel: "Xóa công việc",
-    documentTitle: "CampusFlow — Kế hoạch học tập", metaDescription: "CampusFlow giúp lập kế hoạch học tập, quản lý hạn hoàn thành và theo dõi phiên tập trung.", yourProgress: "TIẾN ĐỘ CỦA BẠN", levelAndStreak: "Cấp độ & chuỗi ngày", level: "Cấp độ", dayStreak: "ngày liên tiếp", studyAnalytics: "PHÂN TÍCH HỌC TẬP", yearActivity: "Hoạt động năm nay", exportData: "Xuất dữ liệu", importData: "Nhập", less: "Ít", more: "Nhiều", estimateMinutes: "Thời lượng dự kiến (phút)", subtasks: "Việc nhỏ (mỗi dòng một việc)", subtasksPlaceholder: "Đọc chương sách\\nLàm bài tập", enableReminders: "Bật nhắc hạn công việc", xpNext: "Còn {remaining} XP để lên cấp", categoryStudy: "Học tập", categoryProject: "Dự án", categoryPersonal: "Cá nhân", categoryReview: "Ôn tập", noStudyTime: "Hoàn thành phiên tập trung để xem thời gian theo nhóm việc.", importSuccess: "Đã nhập dữ liệu.", importFailed: "Không đọc được tệp sao lưu.", reminderEnabled: "Đã bật thông báo hạn việc.", reminderDenied: "Trình duyệt đang chặn thông báo.", subtaskProgress: "{done}/{total} việc nhỏ"
+    documentTitle: "CampusFlow — Kế hoạch học tập", metaDescription: "CampusFlow giúp lập kế hoạch học tập, quản lý hạn hoàn thành và theo dõi phiên tập trung.", yourProgress: "TIẾN ĐỘ CỦA BẠN", levelAndStreak: "Cấp độ & chuỗi ngày", level: "Cấp độ", dayStreak: "ngày liên tiếp", studyAnalytics: "PHÂN TÍCH HỌC TẬP", yearActivity: "Hoạt động năm nay", exportData: "Xuất dữ liệu", importData: "Nhập", less: "Ít", more: "Nhiều", estimateMinutes: "Thời lượng dự kiến (phút)", subtasks: "Việc nhỏ (mỗi dòng một việc)", subtasksPlaceholder: "Đọc chương sách\\nLàm bài tập", enableReminders: "Bật nhắc hạn công việc", suggestSubtasks: "Gợi ý chia nhỏ", xpNext: "Còn {remaining} XP để lên cấp", categoryStudy: "Học tập", categoryProject: "Dự án", categoryPersonal: "Cá nhân", categoryReview: "Ôn tập", noStudyTime: "Hoàn thành phiên tập trung để xem thời gian theo nhóm việc.", importSuccess: "Đã nhập dữ liệu.", importFailed: "Không đọc được tệp sao lưu.", reminderEnabled: "Đã bật thông báo hạn việc.", reminderDenied: "Trình duyệt đang chặn thông báo.", subtaskProgress: "{done}/{total} việc nhỏ"
   }
 };
 
@@ -369,15 +369,21 @@ function finishTimer() {
     focusLog.push({ date: today, minutes: 25, category: focusTask?.category || "Study", taskId: focusTask?.id || null });
     writeStorage(SESSION_LOG_KEY, JSON.stringify(focusLog));
     renderInsights();
+    sendTimerNotification(t("sessionComplete"));
     announce(t("sessionComplete"));
     timerMode = "break";
     timerSeconds = BREAK_DURATION;
   } else {
+    sendTimerNotification(t("breakComplete"));
     announce(t("breakComplete"));
     timerMode = "focus";
     timerSeconds = FOCUS_DURATION;
   }
   renderTimer();
+}
+
+function sendTimerNotification(message) {
+  if (readStorage("campusflow_reminders_v1") === "on" && "Notification" in window && Notification.permission === "granted") new Notification("CampusFlow", { body: message, icon: "./icon.svg" });
 }
 
 function toggleTimer() {
@@ -527,6 +533,7 @@ function renderInsights() {
 $("#export-data").addEventListener("click", () => { const blob = new Blob([JSON.stringify({ version: 1, tasks, focusLog }, null, 2)], { type: "application/json" }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "campusflow-backup.json"; link.click(); URL.revokeObjectURL(link.href); });
 $("#import-data").addEventListener("change", async (event) => { try { const data = JSON.parse(await event.target.files[0].text()); if (!Array.isArray(data.tasks) || !Array.isArray(data.focusLog)) throw new Error("invalid backup"); tasks = data.tasks; focusLog = data.focusLog; writeStorage(SESSION_LOG_KEY, JSON.stringify(focusLog)); saveTasks(); render(); announce(t("importSuccess")); } catch { announce(t("importFailed")); } event.target.value = ""; });
 $("#enable-reminders").addEventListener("click", async () => { if (!("Notification" in window)) return announce(t("reminderDenied")); const permission = await Notification.requestPermission(); if (permission !== "granted") return announce(t("reminderDenied")); writeStorage("campusflow_reminders_v1", "on"); announce(t("reminderEnabled")); });
+$("#suggest-subtasks").addEventListener("click", () => { const title = titleInput.value.trim(); if (!title) { titleInput.focus(); return; } const count = Math.max(2, Math.min(8, Math.ceil((Number($("#task-estimate").value) || 60) / 45))); const parts = Array.from({ length: count }, (_, index) => `${title} — ${currentLanguage === "vi" ? `phần ${index + 1}` : `part ${index + 1}`}`); $("#task-subtasks").value = parts.join("\n"); });
 function checkDueReminders() { if (readStorage("campusflow_reminders_v1") !== "on" || !("Notification" in window) || Notification.permission !== "granted") return; const due = tasks.filter((task) => !task.completed && task.dueDate === today); if (due.length && readStorage(`campusflow_reminded_${today}`) !== "yes") { new Notification("CampusFlow", { body: due.map((task) => task.title).join(", ") }); writeStorage(`campusflow_reminded_${today}`, "yes"); } }
 checkDueReminders(); window.setInterval(checkDueReminders, 60000);
 if ("serviceWorker" in navigator && location.protocol !== "file:") window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
