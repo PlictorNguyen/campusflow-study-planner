@@ -2,6 +2,8 @@
 
 CampusFlow is a responsive study planner for assignments, project work, and focus sessions. The front end uses vanilla HTML, CSS, and JavaScript; an optional Spring Boot and PostgreSQL API adds accounts, cloud sync, timetable OCR, and live focus rooms.
 
+The interface is organized into six navigable screens: Overview, Tasks, Calendar, Focus, Study rooms, and Account & settings. The URL hash tracks the current screen, so each view can be bookmarked or refreshed.
+
 ## Features
 
 - Add tasks with a subject, priority, and due date
