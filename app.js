@@ -1,5 +1,6 @@
 const STORAGE_KEY = "campusflow_tasks_v1";
 const THEME_KEY = "campusflow_theme_v1";
+const LANGUAGE_KEY = "campusflow_language_v1";
 const FOCUS_DURATION = 25 * 60;
 const BREAK_DURATION = 5 * 60;
 const today = localDateString(new Date());
@@ -15,6 +16,59 @@ function shiftDate(days) {
   const date = new Date();
   date.setDate(date.getDate() + days);
   return localDateString(date);
+}
+
+const TEXT = {
+  en: {
+    workspaceLabel: "Workspace", allTasks: "All tasks", today: "Today", upcoming: "Upcoming", completed: "Completed",
+    smallSteps: "Small steps add up.", focusCopy: "Keep your next goal clear and make a little progress today.", studySpace: "My study space", personalPlanner: "Personal planner", overview: "Overview",
+    switchTheme: "Switch color theme", switchToVi: "Switch language to Vietnamese", switchToEn: "Switch language to English", yourStudySpace: "YOUR STUDY SPACE",
+    heroLead: "Make room for", heroAccent: "what matters.", heroCopy: "A clear plan turns busy days into steady progress.", addTask: "Add a task", taskSummary: "Task summary",
+    openTasks: "Open tasks", readyWhenYouAre: "Ready when you are", dueToday: "Due today", nothingDueToday: "Nothing due today", tasksToFocus: "{count} task{plural} to focus on",
+    weeklyProgress: "Weekly progress", progressCaption: "{done} of {total} completed", yourPlan: "YOUR PLAN", myTasks: "My tasks", searchTasks: "Search tasks", filterTasks: "Filter tasks",
+    createFirstTask: "Create your first task", clearCompleted: "Clear completed", noMatches: "No matching tasks.", trySearch: "Try another search or clear the search field.",
+    emptyAllTitle: "A little breathing room.", emptyAllCopy: "Add a task to start shaping your week.", emptyTodayTitle: "Nothing due today.", emptyTodayCopy: "Enjoy the space or plan ahead for tomorrow.",
+    emptyUpcomingTitle: "No upcoming tasks yet.", emptyUpcomingCopy: "Add a deadline when something lands on your list.", emptyCompletedTitle: "Your wins will show up here.", emptyCompletedCopy: "Complete a task to build your progress.",
+    planAhead: "PLAN AHEAD", taskTitleLabel: "What needs doing?", taskTitlePlaceholder: "e.g. Review data structures", subject: "Subject", studyCategory: "Study", projectCategory: "Project", personalCategory: "Personal", reviewCategory: "Review",
+    priority: "Priority", normalPriority: "Normal", highPriority: "High", lowPriority: "Low", dueDate: "Due date", addToPlan: "Add to my plan", localStorageNote: "Your tasks stay in this browser.",
+    freshStart: "A FRESH START", thisWeek: "This week", weekProgress: "{done} of {total} tasks completed this week. Keep your pace.", weekEmpty: "Progress is built one task at a time.",
+    focusSession: "FOCUS SESSION", pomodoroTimer: "Pomodoro timer", focusOnTask: "Focus on a task", chooseTask: "Choose a task (optional)", noTasksFocus: "Add a task to get started", timerMode: "Timer mode", focus: "Focus", break: "Break", focusDuration: "25 min", breakDuration: "5 min",
+    readyFocus: "Ready to focus", timeRecharge: "Time to recharge", stayTask: "Stay with this task", takeBreath: "Take a breath", paused: "Paused", startFocus: "Start focus", startBreak: "Start break", resumeFocus: "Resume focus", resumeBreak: "Resume break", pauseSession: "Pause session", resetTimer: "Reset timer", focusSessionsToday: "focus sessions today", focusRemaining: "{time} remaining in {mode} mode", focusMode: "focus", breakMode: "break",
+    sessionComplete: "Focus session complete. Take a short break.", breakComplete: "Break complete. Ready for another focus session?", progressSaved: "Progress saved.", taskRemoved: "Task removed.", addedTask: "Added to your plan.",
+    tasksCleared: "{count} completed task{plural} cleared.", storageSaved: "Your tasks are saved on this device.", storageUnavailable: "Storage is unavailable in this browser.", madeForLearning: "Made for focused learning",
+    samplePlan: "Map out this week's study goals", sampleProject: "Build a small project feature", sampleReview: "Review notes from last session", noDeadline: "No deadline", dueTodayShort: "Today", dueTomorrow: "Tomorrow", done: "Done", high: "↑ High", low: "↓ Low",
+    mainNavigation: "Main navigation", taskViews: "Task views", chooseFocusTask: "Choose a task for this focus session", weekActivity: "This week's task activity", brandHome: "CampusFlow home", markComplete: "Complete task", markIncomplete: "Mark incomplete", deleteTaskLabel: "Delete task",
+    documentTitle: "CampusFlow — Study planner", metaDescription: "CampusFlow is a lightweight study planner for organizing assignments, deadlines, and study sessions."
+  },
+  vi: {
+    workspaceLabel: "Không gian làm việc", allTasks: "Tất cả việc", today: "Hôm nay", upcoming: "Sắp tới", completed: "Đã hoàn thành",
+    smallSteps: "Từng bước nhỏ tạo nên kết quả.", focusCopy: "Giữ mục tiêu tiếp theo rõ ràng và tiến thêm một chút hôm nay.", studySpace: "Góc học tập của tôi", personalPlanner: "Kế hoạch cá nhân", overview: "Tổng quan",
+    switchTheme: "Đổi giao diện sáng/tối", switchToVi: "Chuyển ngôn ngữ sang tiếng Việt", switchToEn: "Chuyển ngôn ngữ sang tiếng Anh", yourStudySpace: "GÓC HỌC TẬP CỦA BẠN",
+    heroLead: "Dành thời gian cho", heroAccent: "điều quan trọng.", heroCopy: "Kế hoạch rõ ràng giúp mỗi ngày bận rộn tiến gần hơn đến mục tiêu.", addTask: "Thêm công việc", taskSummary: "Tóm tắt công việc",
+    openTasks: "Việc chưa xong", readyWhenYouAre: "Sẵn sàng bắt đầu", dueToday: "Đến hạn hôm nay", nothingDueToday: "Hôm nay không có việc đến hạn", tasksToFocus: "{count} việc cần tập trung",
+    weeklyProgress: "Tiến độ tuần", progressCaption: "Hoàn thành {done}/{total} việc", yourPlan: "KẾ HOẠCH CỦA BẠN", myTasks: "Việc của tôi", searchTasks: "Tìm công việc", filterTasks: "Lọc công việc",
+    createFirstTask: "Tạo công việc đầu tiên", clearCompleted: "Xóa việc đã xong", noMatches: "Không tìm thấy công việc phù hợp.", trySearch: "Thử từ khóa khác hoặc xóa nội dung tìm kiếm.",
+    emptyAllTitle: "Bạn đang có chút thời gian trống.", emptyAllCopy: "Thêm một việc để bắt đầu lên kế hoạch cho tuần.", emptyTodayTitle: "Hôm nay không có việc đến hạn.", emptyTodayCopy: "Bạn có thể nghỉ ngơi hoặc lên kế hoạch cho ngày mai.",
+    emptyUpcomingTitle: "Chưa có việc sắp tới.", emptyUpcomingCopy: "Thêm hạn hoàn thành khi bạn có công việc mới.", emptyCompletedTitle: "Những việc đã xong sẽ hiện ở đây.", emptyCompletedCopy: "Hoàn thành một việc để theo dõi tiến độ.",
+    planAhead: "LÊN KẾ HOẠCH", taskTitleLabel: "Bạn cần làm gì?", taskTitlePlaceholder: "Ví dụ: Ôn cấu trúc dữ liệu", subject: "Nhóm việc", studyCategory: "Học tập", projectCategory: "Dự án", personalCategory: "Cá nhân", reviewCategory: "Ôn tập",
+    priority: "Mức ưu tiên", normalPriority: "Bình thường", highPriority: "Cao", lowPriority: "Thấp", dueDate: "Hạn hoàn thành", addToPlan: "Thêm vào kế hoạch", localStorageNote: "Công việc được lưu trong trình duyệt này.",
+    freshStart: "BẮT ĐẦU MỚI", thisWeek: "Tuần này", weekProgress: "Tuần này đã hoàn thành {done}/{total} việc. Hãy tiếp tục nhé.", weekEmpty: "Tiến độ được tạo nên từ từng việc nhỏ.",
+    focusSession: "PHIÊN TẬP TRUNG", pomodoroTimer: "Đồng hồ Pomodoro", focusOnTask: "Tập trung vào công việc", chooseTask: "Chọn công việc (không bắt buộc)", noTasksFocus: "Thêm công việc để bắt đầu", timerMode: "Chế độ hẹn giờ", focus: "Tập trung", break: "Nghỉ", focusDuration: "25 phút", breakDuration: "5 phút",
+    readyFocus: "Sẵn sàng tập trung", timeRecharge: "Đến giờ nghỉ ngơi", stayTask: "Tiếp tục tập trung nhé", takeBreath: "Thư giãn một chút", paused: "Đã tạm dừng", startFocus: "Bắt đầu tập trung", startBreak: "Bắt đầu nghỉ", resumeFocus: "Tiếp tục tập trung", resumeBreak: "Tiếp tục nghỉ", pauseSession: "Tạm dừng", resetTimer: "Đặt lại đồng hồ", focusSessionsToday: "phiên tập trung hôm nay", focusRemaining: "Còn {time} ở chế độ {mode}", focusMode: "tập trung", breakMode: "nghỉ",
+    sessionComplete: "Hoàn thành phiên tập trung. Hãy nghỉ một chút nhé.", breakComplete: "Hết giờ nghỉ. Sẵn sàng tập trung tiếp chưa?", progressSaved: "Đã lưu tiến độ.", taskRemoved: "Đã xóa công việc.", addedTask: "Đã thêm vào kế hoạch.",
+    tasksCleared: "Đã xóa {count} việc hoàn thành.", storageSaved: "Công việc được lưu trên thiết bị này.", storageUnavailable: "Trình duyệt này không thể lưu dữ liệu.", madeForLearning: "Tạo nên cho việc học tập tập trung",
+    samplePlan: "Lên kế hoạch học tập tuần này", sampleProject: "Hoàn thiện một tính năng nhỏ", sampleReview: "Ôn lại ghi chú buổi trước", noDeadline: "Chưa có hạn", dueTodayShort: "Hôm nay", dueTomorrow: "Ngày mai", done: "Xong", high: "↑ Cao", low: "↓ Thấp",
+    mainNavigation: "Thanh điều hướng chính", taskViews: "Lọc công việc", chooseFocusTask: "Chọn công việc cho phiên tập trung", weekActivity: "Hoạt động công việc trong tuần", brandHome: "Trang chủ CampusFlow", markComplete: "Hoàn thành công việc", markIncomplete: "Đánh dấu chưa hoàn thành", deleteTaskLabel: "Xóa công việc",
+    documentTitle: "CampusFlow — Kế hoạch học tập", metaDescription: "CampusFlow giúp lập kế hoạch học tập, quản lý hạn hoàn thành và theo dõi phiên tập trung."
+  }
+};
+
+let currentLanguage = readStorage(LANGUAGE_KEY) === "vi" ? "vi" : "en";
+
+function t(key, values = {}) {
+  let message = TEXT[currentLanguage][key] ?? TEXT.en[key] ?? key;
+  for (const [name, value] of Object.entries(values)) message = message.replaceAll(`{${name}}`, String(value));
+  return message;
 }
 
 function makeStarterTasks() {
@@ -55,9 +109,9 @@ const titleInput = $("#task-title");
 function saveTasks() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-    $("#list-summary").textContent = "Your tasks are saved on this device.";
+    $("#list-summary").textContent = t("storageSaved");
   } catch {
-    $("#list-summary").textContent = "Storage is unavailable in this browser.";
+    $("#list-summary").textContent = t("storageUnavailable");
   }
 }
 
@@ -70,11 +124,32 @@ function writeStorage(key, value) {
 }
 
 function formatDate(value) {
-  if (!value) return "No due date";
-  if (value === today) return "Today";
-  if (value === shiftDate(1)) return "Tomorrow";
+  if (!value) return t("noDeadline");
+  if (value === today) return t("dueTodayShort");
+  if (value === shiftDate(1)) return t("dueTomorrow");
   const date = new Date(`${value}T12:00:00`);
-  return new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric" }).format(date);
+  return new Intl.DateTimeFormat(currentLanguage === "vi" ? "vi-VN" : "en-US", { month: "short", day: "numeric" }).format(date);
+}
+
+function displayTaskTitle(task) {
+  const samples = {
+    "Map out this week's study goals": "samplePlan",
+    "Build a small project feature": "sampleProject",
+    "Review notes from last session": "sampleReview",
+    "Lên kế hoạch học tập tuần này": "samplePlan",
+    "Hoàn thiện một tính năng nhỏ": "sampleProject",
+    "Ôn lại ghi chú buổi trước": "sampleReview",
+  };
+  return samples[task.title] ? t(samples[task.title]) : task.title;
+}
+
+function displayCategory(category) {
+  const categoryKeys = { Study: "studyCategory", Project: "projectCategory", Personal: "personalCategory", Review: "reviewCategory" };
+  return categoryKeys[category] ? t(categoryKeys[category]) : category;
+}
+
+function dateLocale() {
+  return currentLanguage === "vi" ? "vi-VN" : "en-US";
 }
 
 function isInCurrentWeek(value) {
@@ -96,7 +171,7 @@ function filteredTasks() {
       if (activeFilter === "today" && (task.dueDate !== today || task.completed)) return false;
       if (activeFilter === "upcoming" && (!task.dueDate || task.dueDate <= today || task.completed)) return false;
       if (activeFilter === "completed" && !task.completed) return false;
-      return !query || `${task.title} ${task.category}`.toLowerCase().includes(query);
+      return !query || `${displayTaskTitle(task)} ${displayCategory(task.category)} ${task.title} ${task.category}`.toLowerCase().includes(query);
     })
     .sort((a, b) => Number(a.completed) - Number(b.completed) || (a.dueDate || "9999").localeCompare(b.dueDate || "9999") || b.createdAt - a.createdAt);
 }
@@ -108,7 +183,7 @@ function taskMarkup(task) {
   check.className = "task-check";
   check.type = "button";
   check.textContent = "✓";
-  check.setAttribute("aria-label", `${task.completed ? "Mark incomplete" : "Complete"}: ${task.title}`);
+  check.setAttribute("aria-label", `${t(task.completed ? "markIncomplete" : "markComplete")}: ${displayTaskTitle(task)}`);
   check.setAttribute("aria-pressed", String(task.completed));
   check.addEventListener("click", () => toggleTask(task.id));
 
@@ -116,18 +191,18 @@ function taskMarkup(task) {
   main.className = "task-main";
   const title = document.createElement("div");
   title.className = "task-title";
-  title.textContent = task.title;
-  title.title = task.title;
+  title.textContent = displayTaskTitle(task);
+  title.title = displayTaskTitle(task);
   const meta = document.createElement("div");
   meta.className = "task-meta";
   const category = document.createElement("span");
   category.className = "category-label";
   category.dataset.category = task.category;
-  category.textContent = task.category;
+  category.textContent = displayCategory(task.category);
   const sep = document.createElement("span");
   sep.textContent = "·";
   const due = document.createElement("span");
-  due.textContent = task.dueDate ? formatDate(task.dueDate) : "No deadline";
+  due.textContent = formatDate(task.dueDate);
   meta.append(category, sep, due);
   main.append(title, meta);
 
@@ -136,18 +211,18 @@ function taskMarkup(task) {
   if (task.priority !== "normal") {
     const priority = document.createElement("span");
     priority.className = `priority-label ${task.priority}`;
-    priority.textContent = task.priority === "high" ? "↑ High" : "↓ Low";
+    priority.textContent = task.priority === "high" ? t("high") : t("low");
     side.append(priority);
   }
   const dueLabel = document.createElement("span");
   dueLabel.className = `due-label${task.dueDate === today && !task.completed ? " is-today" : ""}`;
-  dueLabel.textContent = task.completed ? "Done" : formatDate(task.dueDate);
+  dueLabel.textContent = task.completed ? t("done") : formatDate(task.dueDate);
   side.append(dueLabel);
   const remove = document.createElement("button");
   remove.className = "delete-task";
   remove.type = "button";
   remove.textContent = "×";
-  remove.setAttribute("aria-label", `Delete ${task.title}`);
+  remove.setAttribute("aria-label", `${t("deleteTaskLabel")}: ${displayTaskTitle(task)}`);
   remove.addEventListener("click", () => deleteTask(task.id));
   side.append(remove);
   row.append(check, main, side);
@@ -160,14 +235,14 @@ function setEmptyState(count) {
   taskList.hidden = count === 0;
   if (count) return;
   const messages = {
-    all: ["A little breathing room.", "Add a task to start shaping your week."],
-    today: ["Nothing due today.", "Enjoy the space or plan ahead for tomorrow."],
-    upcoming: ["No upcoming tasks yet.", "Add a deadline when something lands on your list."],
-    completed: ["Your wins will show up here.", "Complete a task to build your progress."],
+    all: ["emptyAllTitle", "emptyAllCopy"],
+    today: ["emptyTodayTitle", "emptyTodayCopy"],
+    upcoming: ["emptyUpcomingTitle", "emptyUpcomingCopy"],
+    completed: ["emptyCompletedTitle", "emptyCompletedCopy"],
   };
   const [heading, copy] = messages[activeFilter];
-  $("#empty-title").textContent = searchQuery ? "No matching tasks." : heading;
-  $("#empty-copy").textContent = searchQuery ? "Try another search or clear the search field." : copy;
+  $("#empty-title").textContent = searchQuery ? t("noMatches") : t(heading);
+  $("#empty-copy").textContent = searchQuery ? t("trySearch") : t(copy);
   $("#empty-add").hidden = activeFilter === "completed" || Boolean(searchQuery);
 }
 
@@ -178,14 +253,14 @@ function renderWeek() {
   start.setHours(0, 0, 0, 0);
   const offset = (start.getDay() + 6) % 7;
   start.setDate(start.getDate() - offset);
-  const labels = ["M", "T", "W", "T", "F", "S", "S"];
+  const labels = currentLanguage === "vi" ? ["T2", "T3", "T4", "T5", "T6", "T7", "CN"] : ["M", "T", "W", "T", "F", "S", "S"];
   for (let index = 0; index < 7; index += 1) {
     const date = new Date(start);
     date.setDate(start.getDate() + index);
     const dateString = localDateString(date);
     const day = document.createElement("div");
     day.className = `week-day${dateString === today ? " is-current" : ""}`;
-    day.setAttribute("aria-label", new Intl.DateTimeFormat(undefined, { weekday: "long", month: "short", day: "numeric" }).format(date));
+    day.setAttribute("aria-label", new Intl.DateTimeFormat(dateLocale(), { weekday: "long", month: "short", day: "numeric" }).format(date));
     const label = document.createElement("span");
     label.textContent = labels[index];
     const number = document.createElement("span");
@@ -212,15 +287,15 @@ function render() {
 
   $("#open-stat").textContent = String(open);
   $("#due-stat").textContent = String(dueToday);
-  $("#due-message").textContent = dueToday ? `${dueToday} task${dueToday === 1 ? "" : "s"} to focus on` : "Nothing due today";
+  $("#due-message").textContent = dueToday ? t("tasksToFocus", { count: dueToday, plural: dueToday === 1 ? "" : "s" }) : t("nothingDueToday");
   $("#progress-percent").textContent = String(Math.min(progress, 100));
-  $("#progress-caption").textContent = `${completedThisWeek} of ${weeklyTasks.length} completed`;
+  $("#progress-caption").textContent = t("progressCaption", { done: completedThisWeek, total: weeklyTasks.length });
   $("#progress-bar").style.width = `${Math.min(progress, 100)}%`;
   $("#all-count").textContent = String(open);
   $("#today-count").textContent = String(dueToday);
   $("#visible-count").textContent = String(visible.length);
   $("#clear-completed").hidden = !tasks.some((task) => task.completed);
-  $("#week-copy").textContent = weeklyTasks.length ? `${completedThisWeek} of ${weeklyTasks.length} tasks completed this week. Keep your pace.` : "Progress is built one task at a time.";
+  $("#week-copy").textContent = weeklyTasks.length ? t("weekProgress", { done: completedThisWeek, total: weeklyTasks.length }) : t("weekEmpty");
   renderWeek();
   renderFocusTasks();
   renderTimer();
@@ -232,11 +307,11 @@ function renderFocusTasks() {
   if (!available.some((task) => task.id === selectedFocusTaskId)) selectedFocusTaskId = "";
   const placeholder = document.createElement("option");
   placeholder.value = "";
-  placeholder.textContent = available.length ? "Choose a task (optional)" : "Add a task to get started";
+  placeholder.textContent = available.length ? t("chooseTask") : t("noTasksFocus");
   const options = available.map((task) => {
     const option = document.createElement("option");
     option.value = task.id;
-    option.textContent = task.title;
+    option.textContent = displayTaskTitle(task);
     return option;
   });
   select.replaceChildren(placeholder, ...options);
@@ -249,13 +324,13 @@ function renderTimer() {
   const minutes = Math.floor(timerSeconds / 60).toString().padStart(2, "0");
   const seconds = (timerSeconds % 60).toString().padStart(2, "0");
   const running = timerInterval !== null;
-  const modeName = timerMode === "focus" ? "focus" : "break";
+  const modeName = timerMode === "focus" ? t("focusMode") : t("breakMode");
   $("#timer-display").textContent = `${minutes}:${seconds}`;
-  $("#timer-caption").textContent = running ? (timerMode === "focus" ? "Stay with this task" : "Take a breath") : (timerSeconds === total ? (timerMode === "focus" ? "Ready to focus" : "Time to recharge") : "Paused");
-  $("#timer-dial").setAttribute("aria-label", `${minutes} minutes and ${seconds} seconds remaining in ${modeName} mode`);
+  $("#timer-caption").textContent = running ? (timerMode === "focus" ? t("stayTask") : t("takeBreath")) : (timerSeconds === total ? (timerMode === "focus" ? t("readyFocus") : t("timeRecharge")) : t("paused"));
+  $("#timer-dial").setAttribute("aria-label", t("focusRemaining", { time: `${minutes}:${seconds}`, mode: modeName }));
   $("#dial-progress").style.strokeDashoffset = String(326.73 * (1 - timerSeconds / total));
-  $("#timer-start").textContent = running ? "Pause session" : (timerSeconds === total ? `Start ${modeName}` : `Resume ${modeName}`);
-  $("#timer-start").setAttribute("aria-label", running ? "Pause focus timer" : `${timerSeconds === total ? "Start" : "Resume"} ${modeName} timer`);
+  $("#timer-start").textContent = running ? t("pauseSession") : t(timerMode === "focus" ? (timerSeconds === total ? "startFocus" : "resumeFocus") : (timerSeconds === total ? "startBreak" : "resumeBreak"));
+  $("#timer-start").setAttribute("aria-label", running ? t("pauseSession") : t(timerMode === "focus" ? (timerSeconds === total ? "startFocus" : "resumeFocus") : (timerSeconds === total ? "startBreak" : "resumeBreak")));
   $("#session-total").textContent = String(sessionsToday);
   $(".timer-card").classList.toggle("is-break", timerMode === "break");
   document.querySelectorAll(".timer-mode").forEach((button) => {
@@ -281,11 +356,11 @@ function finishTimer() {
   if (timerMode === "focus") {
     sessionsToday += 1;
     writeStorage(`campusflow_sessions_${today}`, String(sessionsToday));
-    announce("Focus session complete. Take a short break.");
+    announce(t("sessionComplete"));
     timerMode = "break";
     timerSeconds = BREAK_DURATION;
   } else {
-    announce("Break complete. Ready for another focus session?");
+    announce(t("breakComplete"));
     timerMode = "focus";
     timerSeconds = FOCUS_DURATION;
   }
@@ -322,14 +397,14 @@ function toggleTask(id) {
   tasks = tasks.map((task) => task.id === id ? { ...task, completed: !task.completed, completedAtDate: !task.completed ? today : null } : task);
   saveTasks();
   render();
-  announce("Progress saved.");
+  announce(t("progressSaved"));
 }
 
 function deleteTask(id) {
   tasks = tasks.filter((task) => task.id !== id);
   saveTasks();
   render();
-  announce("Task removed.");
+  announce(t("taskRemoved"));
 }
 
 function setFilter(filter) {
@@ -371,7 +446,7 @@ form.addEventListener("submit", (event) => {
   form.reset();
   setFilter("all");
   titleInput.focus();
-  announce("Added to your plan.");
+  announce(t("addedTask"));
 });
 
 $("#clear-completed").addEventListener("click", () => {
@@ -379,17 +454,45 @@ $("#clear-completed").addEventListener("click", () => {
   tasks = tasks.filter((task) => !task.completed);
   saveTasks();
   render();
-  announce(`${completedCount} completed task${completedCount === 1 ? "" : "s"} cleared.`);
+  announce(t("tasksCleared", { count: completedCount, plural: completedCount === 1 ? "" : "s" }));
 });
 
 $("#theme-toggle").addEventListener("click", () => {
   const isDark = document.body.classList.toggle("dark");
   writeStorage(THEME_KEY, isDark ? "dark" : "light");
-  $("#theme-toggle").setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} theme`);
+  $("#theme-toggle").setAttribute("aria-label", t("switchTheme"));
+  $("#theme-toggle").setAttribute("title", t("switchTheme"));
+});
+
+function renderHeaderDates() {
+  const now = new Date();
+  $("#header-date").textContent = new Intl.DateTimeFormat(dateLocale(), { weekday: "short", month: "short", day: "numeric" }).format(now);
+  $("#welcome-date").textContent = new Intl.DateTimeFormat(dateLocale(), { weekday: "long", month: "long", day: "numeric" }).format(now).toUpperCase();
+}
+
+function applyLanguage() {
+  document.documentElement.lang = currentLanguage;
+  document.title = t("documentTitle");
+  document.querySelector('meta[name="description"]').content = t("metaDescription");
+  document.querySelectorAll("[data-i18n]").forEach((element) => { element.textContent = t(element.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => { element.placeholder = t(element.dataset.i18nPlaceholder); });
+  document.querySelectorAll("[data-i18n-aria]").forEach((element) => { element.setAttribute("aria-label", t(element.dataset.i18nAria)); });
+  document.querySelectorAll("[data-i18n-title]").forEach((element) => { element.title = t(element.dataset.i18nTitle); });
+  const languageButton = $("#language-toggle");
+  languageButton.textContent = currentLanguage === "en" ? "VI" : "EN";
+  languageButton.setAttribute("aria-label", t(currentLanguage === "en" ? "switchToVi" : "switchToEn"));
+  languageButton.title = t(currentLanguage === "en" ? "switchToVi" : "switchToEn");
+  $("#theme-toggle").setAttribute("aria-label", t("switchTheme"));
+  $("#theme-toggle").title = t("switchTheme");
+  renderHeaderDates();
+  render();
+}
+
+$("#language-toggle").addEventListener("click", () => {
+  currentLanguage = currentLanguage === "en" ? "vi" : "en";
+  writeStorage(LANGUAGE_KEY, currentLanguage);
+  applyLanguage();
 });
 
 if (readStorage(THEME_KEY) === "dark") document.body.classList.add("dark");
-const now = new Date();
-$("#header-date").textContent = new Intl.DateTimeFormat(undefined, { weekday: "short", month: "short", day: "numeric" }).format(now);
-$("#welcome-date").textContent = new Intl.DateTimeFormat(undefined, { weekday: "long", month: "long", day: "numeric" }).format(now).toUpperCase();
-render();
+applyLanguage();
