@@ -14,29 +14,29 @@
   </head>
   <body>
     <div class="app-shell">
-      <aside class="sidebar" aria-label="Main navigation">
-        <a class="brand" href="#home" aria-label="CampusFlow home">
+      <aside class="sidebar" aria-label="Main navigation" data-i18n-aria="mainNavigation">
+        <a class="brand" href="#home" aria-label="CampusFlow home" data-i18n-aria="brandHome">
           <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
           <span>campus<span class="brand-light">flow</span></span>
         </a>
 
-        <div class="workspace-label">WORKSPACE</div>
-        <nav class="nav-list" aria-label="Task views">
-          <button class="nav-item is-active" data-filter="all" type="button"><span class="nav-icon">▦</span>All tasks<span class="nav-count" id="all-count">0</span></button>
-          <button class="nav-item" data-filter="today" type="button"><span class="nav-icon">◷</span>Today<span class="nav-count" id="today-count">0</span></button>
-          <button class="nav-item" data-filter="upcoming" type="button"><span class="nav-icon">▣</span>Upcoming</button>
-          <button class="nav-item" data-filter="completed" type="button"><span class="nav-icon">✓</span>Completed</button>
+        <div class="workspace-label" data-i18n="workspaceLabel">WORKSPACE</div>
+        <nav class="nav-list" aria-label="Task views" data-i18n-aria="taskViews">
+          <button class="nav-item is-active" data-filter="all" type="button"><span class="nav-icon">▦</span><span data-i18n="allTasks">All tasks</span><span class="nav-count" id="all-count">0</span></button>
+          <button class="nav-item" data-filter="today" type="button"><span class="nav-icon">◷</span><span data-i18n="today">Today</span><span class="nav-count" id="today-count">0</span></button>
+          <button class="nav-item" data-filter="upcoming" type="button"><span class="nav-icon">▣</span><span data-i18n="upcoming">Upcoming</span></button>
+          <button class="nav-item" data-filter="completed" type="button"><span class="nav-icon">✓</span><span data-i18n="completed">Completed</span></button>
         </nav>
 
         <div class="sidebar-bottom">
           <div class="focus-card">
             <div class="focus-spark">✦</div>
-            <p class="focus-title">Small steps add up.</p>
-            <p class="focus-copy">Keep your next goal clear and make a little progress today.</p>
+            <p class="focus-title" data-i18n="smallSteps">Small steps add up.</p>
+            <p class="focus-copy" data-i18n="focusCopy">Keep your next goal clear and make a little progress today.</p>
           </div>
           <div class="profile-row">
             <div class="avatar" aria-hidden="true">CS</div>
-            <div><strong>My study space</strong><span>Personal planner</span></div>
+            <div><strong data-i18n="studySpace">My study space</strong><span data-i18n="personalPlanner">Personal planner</span></div>
             <span class="profile-menu" aria-hidden="true">•••</span>
           </div>
         </div>
@@ -44,9 +44,10 @@
 
       <main class="main-content" id="home">
         <header class="topbar">
-          <div class="breadcrumbs"><span>Workspace</span><span class="crumb-divider">/</span><strong>Overview</strong></div>
+          <div class="breadcrumbs"><span data-i18n="workspaceLabel">Workspace</span><span class="crumb-divider">/</span><strong data-i18n="overview">Overview</strong></div>
           <div class="topbar-actions">
             <span class="today-label" id="header-date"></span>
+            <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch language to Vietnamese" title="Switch language">VI</button>
             <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">◐</button>
           </div>
         </header>
@@ -54,26 +55,26 @@
         <div class="content-wrap">
           <section class="welcome-row">
             <div>
-              <p class="eyebrow" id="welcome-date">YOUR STUDY SPACE</p>
-              <h1>Make room for <span>what matters.</span></h1>
-              <p class="welcome-copy">A clear plan turns busy days into steady progress.</p>
+              <p class="eyebrow" id="welcome-date" data-i18n="yourStudySpace">YOUR STUDY SPACE</p>
+              <h1><span class="hero-lead" data-i18n="heroLead">Make room for</span> <span class="hero-accent" data-i18n="heroAccent">what matters.</span></h1>
+              <p class="welcome-copy" data-i18n="heroCopy">A clear plan turns busy days into steady progress.</p>
             </div>
-            <button class="primary-button" id="focus-add" type="button"><span aria-hidden="true">＋</span> Add a task</button>
+            <button class="primary-button" id="focus-add" type="button"><span aria-hidden="true">＋</span> <span data-i18n="addTask">Add a task</span></button>
           </section>
 
-          <section class="stats-grid" aria-label="Task summary">
+          <section class="stats-grid" aria-label="Task summary" data-i18n-aria="taskSummary">
             <article class="stat-card">
-              <div class="stat-heading"><span>Open tasks</span><span class="stat-icon mint">▦</span></div>
+              <div class="stat-heading"><span data-i18n="openTasks">Open tasks</span><span class="stat-icon mint">▦</span></div>
               <div class="stat-value" id="open-stat">0</div>
-              <div class="stat-foot"><span class="status-dot green-dot"></span><span>Ready when you are</span></div>
+              <div class="stat-foot"><span class="status-dot green-dot"></span><span data-i18n="readyWhenYouAre">Ready when you are</span></div>
             </article>
             <article class="stat-card">
-              <div class="stat-heading"><span>Due today</span><span class="stat-icon lilac">◷</span></div>
+              <div class="stat-heading"><span data-i18n="dueToday">Due today</span><span class="stat-icon lilac">◷</span></div>
               <div class="stat-value" id="due-stat">0</div>
               <div class="stat-foot"><span id="due-message">Nothing due today</span></div>
             </article>
             <article class="stat-card progress-stat">
-              <div class="stat-heading"><span>Weekly progress</span><span class="stat-icon peach">↗</span></div>
+              <div class="stat-heading"><span data-i18n="weeklyProgress">Weekly progress</span><span class="stat-icon peach">↗</span></div>
               <div class="progress-line"><div class="stat-value"><span id="progress-percent">0</span><small>%</small></div><span class="progress-caption" id="progress-caption">0 of 0 completed</span></div>
               <div class="progress-track"><span id="progress-bar"></span></div>
             </article>
@@ -82,56 +83,56 @@
           <div class="dashboard-grid">
             <section class="tasks-panel card-panel" aria-labelledby="tasks-heading">
               <div class="panel-header">
-                <div><p class="eyebrow">YOUR PLAN</p><h2 id="tasks-heading">My tasks <span class="heading-count" id="visible-count">0</span></h2></div>
-                <label class="search-box"><span aria-hidden="true">⌕</span><input id="task-search" type="search" placeholder="Search tasks" aria-label="Search tasks" /></label>
+                <div><p class="eyebrow" data-i18n="yourPlan">YOUR PLAN</p><h2 id="tasks-heading"><span data-i18n="myTasks">My tasks</span> <span class="heading-count" id="visible-count">0</span></h2></div>
+                <label class="search-box"><span aria-hidden="true">⌕</span><input id="task-search" type="search" placeholder="Search tasks" aria-label="Search tasks" data-i18n-placeholder="searchTasks" data-i18n-aria="searchTasks" /></label>
               </div>
-              <div class="filter-row" role="group" aria-label="Filter tasks">
-                <button class="filter-chip is-selected" type="button" data-filter="all">All tasks</button>
-                <button class="filter-chip" type="button" data-filter="today">Today</button>
-                <button class="filter-chip" type="button" data-filter="upcoming">Upcoming</button>
-                <button class="filter-chip" type="button" data-filter="completed">Completed</button>
+              <div class="filter-row" role="group" aria-label="Filter tasks" data-i18n-aria="filterTasks">
+                <button class="filter-chip is-selected" type="button" data-filter="all" data-i18n="allTasks">All tasks</button>
+                <button class="filter-chip" type="button" data-filter="today" data-i18n="today">Today</button>
+                <button class="filter-chip" type="button" data-filter="upcoming" data-i18n="upcoming">Upcoming</button>
+                <button class="filter-chip" type="button" data-filter="completed" data-i18n="completed">Completed</button>
               </div>
               <div class="task-list" id="task-list" aria-live="polite"></div>
               <div class="empty-state" id="empty-state" hidden>
                 <div class="empty-illustration" aria-hidden="true">✦</div>
                 <h3 id="empty-title">A little breathing room.</h3>
                 <p id="empty-copy">Add a task to start shaping your week.</p>
-                <button class="text-button" id="empty-add" type="button">Create your first task <span aria-hidden="true">→</span></button>
+                <button class="text-button" id="empty-add" type="button"><span data-i18n="createFirstTask">Create your first task</span> <span aria-hidden="true">→</span></button>
               </div>
-              <div class="list-footer"><span id="list-summary">Your tasks are saved on this device.</span><button class="text-button clear-button" id="clear-completed" type="button" hidden>Clear completed</button></div>
+              <div class="list-footer"><span id="list-summary">Your tasks are saved on this device.</span><button class="text-button clear-button" id="clear-completed" type="button" hidden data-i18n="clearCompleted">Clear completed</button></div>
             </section>
 
             <aside class="right-column" aria-label="Study planning tools">
               <section class="new-task-panel card-panel" id="new-task-panel" aria-labelledby="new-task-heading">
-                <div class="form-heading"><div><p class="eyebrow">PLAN AHEAD</p><h2 id="new-task-heading">Add a task</h2></div><span class="form-spark" aria-hidden="true">✳</span></div>
+                <div class="form-heading"><div><p class="eyebrow" data-i18n="planAhead">PLAN AHEAD</p><h2 id="new-task-heading" data-i18n="addTask">Add a task</h2></div><span class="form-spark" aria-hidden="true">✳</span></div>
                 <form id="task-form">
-                  <label class="field-label" for="task-title">What needs doing?</label>
-                  <input class="text-input" id="task-title" name="title" type="text" maxlength="90" placeholder="e.g. Review data structures" required />
+                  <label class="field-label" for="task-title" data-i18n="taskTitleLabel">What needs doing?</label>
+                  <input class="text-input" id="task-title" name="title" type="text" maxlength="90" placeholder="e.g. Review data structures" data-i18n-placeholder="taskTitlePlaceholder" required />
                   <div class="form-row">
-                    <div class="field-group"><label class="field-label" for="task-category">Subject</label><select class="text-input" id="task-category" name="category"><option>Study</option><option>Project</option><option>Personal</option><option>Review</option></select></div>
-                    <div class="field-group"><label class="field-label" for="task-priority">Priority</label><select class="text-input" id="task-priority" name="priority"><option value="normal">Normal</option><option value="high">High</option><option value="low">Low</option></select></div>
+                    <div class="field-group"><label class="field-label" for="task-category" data-i18n="subject">Subject</label><select class="text-input" id="task-category" name="category"><option value="Study" data-i18n="studyCategory">Study</option><option value="Project" data-i18n="projectCategory">Project</option><option value="Personal" data-i18n="personalCategory">Personal</option><option value="Review" data-i18n="reviewCategory">Review</option></select></div>
+                    <div class="field-group"><label class="field-label" for="task-priority" data-i18n="priority">Priority</label><select class="text-input" id="task-priority" name="priority"><option value="normal" data-i18n="normalPriority">Normal</option><option value="high" data-i18n="highPriority">High</option><option value="low" data-i18n="lowPriority">Low</option></select></div>
                   </div>
-                  <label class="field-label" for="task-date">Due date</label>
+                  <label class="field-label" for="task-date" data-i18n="dueDate">Due date</label>
                   <input class="text-input date-input" id="task-date" name="dueDate" type="date" />
-                  <button class="primary-button submit-button" type="submit">Add to my plan <span aria-hidden="true">↗</span></button>
-                  <p class="form-note"><span aria-hidden="true">🔒</span> Your tasks stay in this browser.</p>
+                  <button class="primary-button submit-button" type="submit"><span data-i18n="addToPlan">Add to my plan</span> <span aria-hidden="true">↗</span></button>
+                  <p class="form-note"><span aria-hidden="true">🔒</span> <span data-i18n="localStorageNote">Your tasks stay in this browser.</span></p>
                 </form>
               </section>
 
               <section class="week-card card-panel" aria-labelledby="week-heading">
-                <div class="week-heading"><div><p class="eyebrow">A FRESH START</p><h2 id="week-heading">This week</h2></div><span class="week-icon" aria-hidden="true">✦</span></div>
+                <div class="week-heading"><div><p class="eyebrow" data-i18n="freshStart">A FRESH START</p><h2 id="week-heading" data-i18n="thisWeek">This week</h2></div><span class="week-icon" aria-hidden="true">✦</span></div>
                 <p class="week-copy" id="week-copy">Progress is built one task at a time.</p>
-                <div class="week-days" id="week-days" aria-label="This week's task activity"></div>
-                <div class="week-legend"><span><i class="legend-dot done-dot"></i>Completed</span><span><i class="legend-dot todo-dot"></i>Due date</span></div>
+                <div class="week-days" id="week-days" aria-label="This week's task activity" data-i18n-aria="weekActivity"></div>
+                <div class="week-legend"><span><i class="legend-dot done-dot"></i><span data-i18n="completed">Completed</span></span><span><i class="legend-dot todo-dot"></i><span data-i18n="dueDate">Due date</span></span></div>
               </section>
 
               <section class="timer-card card-panel" aria-labelledby="timer-heading">
-                <div class="week-heading"><div><p class="eyebrow">FOCUS SESSION</p><h2 id="timer-heading">Pomodoro timer</h2></div><span class="timer-icon" aria-hidden="true">◷</span></div>
-                <label class="field-label focus-task-label" for="focus-task">Focus on a task</label>
-                <select class="text-input" id="focus-task" aria-label="Choose a task for this focus session"></select>
-                <div class="timer-mode-row" role="group" aria-label="Timer mode">
-                  <button class="timer-mode is-current" type="button" data-mode="focus" aria-pressed="true">Focus <span>25 min</span></button>
-                  <button class="timer-mode" type="button" data-mode="break" aria-pressed="false">Break <span>5 min</span></button>
+                <div class="week-heading"><div><p class="eyebrow" data-i18n="focusSession">FOCUS SESSION</p><h2 id="timer-heading" data-i18n="pomodoroTimer">Pomodoro timer</h2></div><span class="timer-icon" aria-hidden="true">◷</span></div>
+                <label class="field-label focus-task-label" for="focus-task" data-i18n="focusOnTask">Focus on a task</label>
+                <select class="text-input" id="focus-task" aria-label="Choose a task for this focus session" data-i18n-aria="chooseFocusTask"></select>
+                <div class="timer-mode-row" role="group" aria-label="Timer mode" data-i18n-aria="timerMode">
+                  <button class="timer-mode is-current" type="button" data-mode="focus" aria-pressed="true"><span data-i18n="focus">Focus</span> <span data-i18n="focusDuration">25 min</span></button>
+                  <button class="timer-mode" type="button" data-mode="break" aria-pressed="false"><span data-i18n="break">Break</span> <span data-i18n="breakDuration">5 min</span></button>
                 </div>
                 <div class="timer-dial" id="timer-dial" role="timer" aria-live="off" aria-label="25 minutes remaining">
                   <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="dial-track" cx="60" cy="60" r="52"></circle><circle class="dial-progress" id="dial-progress" cx="60" cy="60" r="52"></circle></svg>
@@ -139,13 +140,13 @@
                 </div>
                 <div class="timer-controls">
                   <button class="primary-button timer-start" id="timer-start" type="button">Start focus</button>
-                  <button class="timer-reset" id="timer-reset" type="button" aria-label="Reset timer" title="Reset timer">↺</button>
+                  <button class="timer-reset" id="timer-reset" type="button" aria-label="Reset timer" title="Reset timer" data-i18n-aria="resetTimer" data-i18n-title="resetTimer">↺</button>
                 </div>
-                <div class="session-count"><span class="session-spark" aria-hidden="true">✦</span><span><strong id="session-total">0</strong> focus sessions today</span></div>
+                <div class="session-count"><span class="session-spark" aria-hidden="true">✦</span><span><strong id="session-total">0</strong> <span data-i18n="focusSessionsToday">focus sessions today</span></span></div>
               </section>
             </aside>
           </div>
-          <footer class="page-footer"><span>Made for focused learning</span><span>CampusFlow <span class="footer-heart">✦</span></span></footer>
+          <footer class="page-footer"><span data-i18n="madeForLearning">Made for focused learning</span><span>CampusFlow <span class="footer-heart">✦</span></span></footer>
         </div>
       </main>
     </div>
