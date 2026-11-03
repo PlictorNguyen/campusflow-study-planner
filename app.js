@@ -38,7 +38,7 @@ const TEXT = {
     tasksCleared: "{count} completed task{plural} cleared.", storageSaved: "Your tasks are saved on this device.", storageUnavailable: "Storage is unavailable in this browser.", madeForLearning: "Made for focused learning",
     samplePlan: "Map out this week's study goals", sampleProject: "Build a small project feature", sampleReview: "Review notes from last session", noDeadline: "No deadline", dueTodayShort: "Today", dueTomorrow: "Tomorrow", done: "Done", high: "↑ High", low: "↓ Low",
     mainNavigation: "Main navigation", taskViews: "Task views", chooseFocusTask: "Choose a task for this focus session", weekActivity: "This week's task activity", brandHome: "CampusFlow home", markComplete: "Complete task", markIncomplete: "Mark incomplete", deleteTaskLabel: "Delete task",
-    documentTitle: "CampusFlow — Study planner", metaDescription: "CampusFlow is a lightweight study planner for organizing assignments, deadlines, and study sessions."
+    documentTitle: "CampusFlow — Study planner", metaDescription: "CampusFlow is a lightweight study planner for organizing assignments, deadlines, and study sessions.", yourProgress: "YOUR PROGRESS", levelAndStreak: "Level & streak", level: "Level", dayStreak: "day streak", studyAnalytics: "STUDY ANALYTICS", yearActivity: "Activity this year", exportData: "Export data", importData: "Import", less: "Less", more: "More", estimateMinutes: "Estimate (minutes)", subtasks: "Subtasks (one per line)", subtasksPlaceholder: "Read chapter\\nSolve exercises", enableReminders: "Enable due-date reminders", xpNext: "{remaining} XP to next level", categoryStudy: "Study", categoryProject: "Project", categoryPersonal: "Personal", categoryReview: "Review", noStudyTime: "Complete focus sessions to see time by category.", importSuccess: "Data imported.", importFailed: "Could not read that backup.", reminderEnabled: "Due-date reminders enabled.", reminderDenied: "Notifications are blocked by your browser.", subtaskProgress: "{done}/{total} subtasks"
   },
   vi: {
     workspaceLabel: "Không gian làm việc", allTasks: "Tất cả việc", today: "Hôm nay", upcoming: "Sắp tới", completed: "Đã hoàn thành",
@@ -59,7 +59,7 @@ const TEXT = {
     tasksCleared: "Đã xóa {count} việc hoàn thành.", storageSaved: "Công việc được lưu trên thiết bị này.", storageUnavailable: "Trình duyệt này không thể lưu dữ liệu.", madeForLearning: "Tạo nên cho việc học tập tập trung",
     samplePlan: "Lên kế hoạch học tập tuần này", sampleProject: "Hoàn thiện một tính năng nhỏ", sampleReview: "Ôn lại ghi chú buổi trước", noDeadline: "Chưa có hạn", dueTodayShort: "Hôm nay", dueTomorrow: "Ngày mai", done: "Xong", high: "↑ Cao", low: "↓ Thấp",
     mainNavigation: "Thanh điều hướng chính", taskViews: "Lọc công việc", chooseFocusTask: "Chọn công việc cho phiên tập trung", weekActivity: "Hoạt động công việc trong tuần", brandHome: "Trang chủ CampusFlow", markComplete: "Hoàn thành công việc", markIncomplete: "Đánh dấu chưa hoàn thành", deleteTaskLabel: "Xóa công việc",
-    documentTitle: "CampusFlow — Kế hoạch học tập", metaDescription: "CampusFlow giúp lập kế hoạch học tập, quản lý hạn hoàn thành và theo dõi phiên tập trung."
+    documentTitle: "CampusFlow — Kế hoạch học tập", metaDescription: "CampusFlow giúp lập kế hoạch học tập, quản lý hạn hoàn thành và theo dõi phiên tập trung.", yourProgress: "TIẾN ĐỘ CỦA BẠN", levelAndStreak: "Cấp độ & chuỗi ngày", level: "Cấp độ", dayStreak: "ngày liên tiếp", studyAnalytics: "PHÂN TÍCH HỌC TẬP", yearActivity: "Hoạt động năm nay", exportData: "Xuất dữ liệu", importData: "Nhập", less: "Ít", more: "Nhiều", estimateMinutes: "Thời lượng dự kiến (phút)", subtasks: "Việc nhỏ (mỗi dòng một việc)", subtasksPlaceholder: "Đọc chương sách\\nLàm bài tập", enableReminders: "Bật nhắc hạn công việc", xpNext: "Còn {remaining} XP để lên cấp", categoryStudy: "Học tập", categoryProject: "Dự án", categoryPersonal: "Cá nhân", categoryReview: "Ôn tập", noStudyTime: "Hoàn thành phiên tập trung để xem thời gian theo nhóm việc.", importSuccess: "Đã nhập dữ liệu.", importFailed: "Không đọc được tệp sao lưu.", reminderEnabled: "Đã bật thông báo hạn việc.", reminderDenied: "Trình duyệt đang chặn thông báo.", subtaskProgress: "{done}/{total} việc nhỏ"
   }
 };
 
@@ -100,6 +100,8 @@ let timerInterval = null;
 let timerEndsAt = null;
 let selectedFocusTaskId = "";
 let sessionsToday = Number(readStorage(`campusflow_sessions_${today}`)) || 0;
+const SESSION_LOG_KEY = "campusflow_focus_log_v1";
+let focusLog = (() => { try { const value = JSON.parse(readStorage(SESSION_LOG_KEY) || "[]"); return Array.isArray(value) ? value : []; } catch { return []; } })();
 
 const $ = (selector) => document.querySelector(selector);
 const taskList = $("#task-list");
@@ -205,6 +207,12 @@ function taskMarkup(task) {
   due.textContent = formatDate(task.dueDate);
   meta.append(category, sep, due);
   main.append(title, meta);
+  if (task.subtasks?.length) {
+    const subtaskBox = document.createElement("div"); subtaskBox.className = "subtask-list";
+    const progress = document.createElement("span"); progress.className = "subtask-progress"; progress.textContent = t("subtaskProgress", { done: task.subtasks.filter((item) => item.done).length, total: task.subtasks.length }); subtaskBox.append(progress);
+    task.subtasks.forEach((item, index) => { const label = document.createElement("label"); label.className = "subtask-item"; const checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = item.done; checkbox.addEventListener("change", () => { task.subtasks[index].done = checkbox.checked; saveTasks(); render(); }); const text = document.createElement("span"); text.textContent = item.title; label.append(checkbox, text); subtaskBox.append(label); });
+    main.append(subtaskBox);
+  }
 
   const side = document.createElement("div");
   side.className = "task-side";
@@ -297,6 +305,7 @@ function render() {
   $("#clear-completed").hidden = !tasks.some((task) => task.completed);
   $("#week-copy").textContent = weeklyTasks.length ? t("weekProgress", { done: completedThisWeek, total: weeklyTasks.length }) : t("weekEmpty");
   renderWeek();
+  renderInsights();
   renderFocusTasks();
   renderTimer();
 }
@@ -356,6 +365,10 @@ function finishTimer() {
   if (timerMode === "focus") {
     sessionsToday += 1;
     writeStorage(`campusflow_sessions_${today}`, String(sessionsToday));
+    const focusTask = tasks.find((task) => task.id === selectedFocusTaskId);
+    focusLog.push({ date: today, minutes: 25, category: focusTask?.category || "Study", taskId: focusTask?.id || null });
+    writeStorage(SESSION_LOG_KEY, JSON.stringify(focusLog));
+    renderInsights();
     announce(t("sessionComplete"));
     timerMode = "break";
     timerSeconds = BREAK_DURATION;
@@ -394,7 +407,7 @@ function announce(message) {
 }
 
 function toggleTask(id) {
-  tasks = tasks.map((task) => task.id === id ? { ...task, completed: !task.completed, completedAtDate: !task.completed ? today : null } : task);
+  tasks = tasks.map((task) => task.id === id ? { ...task, completed: !task.completed, completedAtDate: !task.completed ? today : null, rewarded: task.rewarded || !task.completed } : task);
   saveTasks();
   render();
   announce(t("progressSaved"));
@@ -433,12 +446,15 @@ form.addEventListener("submit", (event) => {
   const data = new FormData(form);
   const title = String(data.get("title") || "").trim();
   if (!title) return;
+  const subtasks = String(data.get("subtasks") || "").split("\n").map((item) => item.trim()).filter(Boolean).slice(0, 12).map((title) => ({ title, done: false }));
   tasks.unshift({
     id: crypto.randomUUID(),
     title,
     category: String(data.get("category")),
     priority: String(data.get("priority")),
     dueDate: String(data.get("dueDate")),
+    estimateMinutes: Math.max(15, Number(data.get("estimate")) || 60),
+    subtasks,
     completed: false,
     createdAt: Date.now(),
   });
@@ -487,6 +503,33 @@ function applyLanguage() {
   renderHeaderDates();
   render();
 }
+
+function renderInsights() {
+  const completedTasks = tasks.filter((task) => task.completed && task.rewarded).length;
+  const xp = completedTasks * 20 + focusLog.length * 10;
+  const level = Math.floor(xp / 100) + 1;
+  const streakDates = new Set([...focusLog.map((item) => item.date), ...tasks.filter((task) => task.completed).map((task) => task.completedAtDate).filter(Boolean)]);
+  let streak = 0; const cursor = new Date(); cursor.setHours(0, 0, 0, 0);
+  if (!streakDates.has(localDateString(cursor))) cursor.setDate(cursor.getDate() - 1);
+  while (streakDates.has(localDateString(cursor))) { streak += 1; cursor.setDate(cursor.getDate() - 1); }
+  $("#level-value").textContent = String(level); $("#streak-value").textContent = String(streak); $("#xp-value").textContent = String(xp);
+  $("#xp-bar").style.width = `${xp % 100}%`; $("#xp-caption").textContent = t("xpNext", { remaining: 100 - (xp % 100) });
+  const counts = new Map(); focusLog.forEach((item) => counts.set(item.date, (counts.get(item.date) || 0) + 1));
+  tasks.filter((task) => task.completed && task.completedAtDate).forEach((task) => counts.set(task.completedAtDate, (counts.get(task.completedAtDate) || 0) + 1));
+  const heatmap = $("#heatmap"); heatmap.replaceChildren(); const end = new Date(); end.setHours(0, 0, 0, 0); const start = new Date(end); start.setDate(start.getDate() - 363 - start.getDay());
+  for (let day = 0; day < 364; day += 1) { const date = new Date(start); date.setDate(start.getDate() + day); const dateKey = localDateString(date); const count = counts.get(dateKey) || 0; const cell = document.createElement("i"); cell.className = `heat-cell level-${Math.min(4, count)}`; cell.title = `${dateKey}: ${count}`; heatmap.append(cell); }
+  const minutes = {}; focusLog.forEach((item) => { minutes[item.category] = (minutes[item.category] || 0) + item.minutes; });
+  const categories = ["Study", "Project", "Personal", "Review"].filter((category) => minutes[category]); const holder = $("#category-time"); holder.replaceChildren();
+  if (!categories.length) { holder.textContent = t("noStudyTime"); return; }
+  categories.forEach((category) => { const item = document.createElement("span"); item.textContent = `${t(`category${category}`)} · ${minutes[category]} min`; holder.append(item); });
+}
+
+$("#export-data").addEventListener("click", () => { const blob = new Blob([JSON.stringify({ version: 1, tasks, focusLog }, null, 2)], { type: "application/json" }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "campusflow-backup.json"; link.click(); URL.revokeObjectURL(link.href); });
+$("#import-data").addEventListener("change", async (event) => { try { const data = JSON.parse(await event.target.files[0].text()); if (!Array.isArray(data.tasks) || !Array.isArray(data.focusLog)) throw new Error("invalid backup"); tasks = data.tasks; focusLog = data.focusLog; writeStorage(SESSION_LOG_KEY, JSON.stringify(focusLog)); saveTasks(); render(); announce(t("importSuccess")); } catch { announce(t("importFailed")); } event.target.value = ""; });
+$("#enable-reminders").addEventListener("click", async () => { if (!("Notification" in window)) return announce(t("reminderDenied")); const permission = await Notification.requestPermission(); if (permission !== "granted") return announce(t("reminderDenied")); writeStorage("campusflow_reminders_v1", "on"); announce(t("reminderEnabled")); });
+function checkDueReminders() { if (readStorage("campusflow_reminders_v1") !== "on" || !("Notification" in window) || Notification.permission !== "granted") return; const due = tasks.filter((task) => !task.completed && task.dueDate === today); if (due.length && readStorage(`campusflow_reminded_${today}`) !== "yes") { new Notification("CampusFlow", { body: due.map((task) => task.title).join(", ") }); writeStorage(`campusflow_reminded_${today}`, "yes"); } }
+checkDueReminders(); window.setInterval(checkDueReminders, 60000);
+if ("serviceWorker" in navigator && location.protocol !== "file:") window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
 
 $("#language-toggle").addEventListener("click", () => {
   currentLanguage = currentLanguage === "en" ? "vi" : "en";
