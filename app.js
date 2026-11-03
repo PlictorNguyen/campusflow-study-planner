@@ -1,5 +1,7 @@
 const STORAGE_KEY = "campusflow_tasks_v1";
 const THEME_KEY = "campusflow_theme_v1";
+const FOCUS_DURATION = 25 * 60;
+const BREAK_DURATION = 5 * 60;
 const today = localDateString(new Date());
 
 function localDateString(date) {
@@ -38,6 +40,12 @@ let tasks = loadTasks();
 let activeFilter = "all";
 let searchQuery = "";
 let toastTimer;
+let timerMode = "focus";
+let timerSeconds = FOCUS_DURATION;
+let timerInterval = null;
+let timerEndsAt = null;
+let selectedFocusTaskId = "";
+let sessionsToday = Number(readStorage(`campusflow_sessions_${today}`)) || 0;
 
 const $ = (selector) => document.querySelector(selector);
 const taskList = $("#task-list");
@@ -51,6 +59,14 @@ function saveTasks() {
   } catch {
     $("#list-summary").textContent = "Storage is unavailable in this browser.";
   }
+}
+
+function readStorage(key) {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+
+function writeStorage(key, value) {
+  try { localStorage.setItem(key, value); return true; } catch { return false; }
 }
 
 function formatDate(value) {
@@ -206,6 +222,92 @@ function render() {
   $("#clear-completed").hidden = !tasks.some((task) => task.completed);
   $("#week-copy").textContent = weeklyTasks.length ? `${completedThisWeek} of ${weeklyTasks.length} tasks completed this week. Keep your pace.` : "Progress is built one task at a time.";
   renderWeek();
+  renderFocusTasks();
+  renderTimer();
+}
+
+function renderFocusTasks() {
+  const select = $("#focus-task");
+  const available = tasks.filter((task) => !task.completed);
+  if (!available.some((task) => task.id === selectedFocusTaskId)) selectedFocusTaskId = "";
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = available.length ? "Choose a task (optional)" : "Add a task to get started";
+  const options = available.map((task) => {
+    const option = document.createElement("option");
+    option.value = task.id;
+    option.textContent = task.title;
+    return option;
+  });
+  select.replaceChildren(placeholder, ...options);
+  select.value = selectedFocusTaskId;
+  select.disabled = available.length === 0;
+}
+
+function renderTimer() {
+  const total = timerMode === "focus" ? FOCUS_DURATION : BREAK_DURATION;
+  const minutes = Math.floor(timerSeconds / 60).toString().padStart(2, "0");
+  const seconds = (timerSeconds % 60).toString().padStart(2, "0");
+  const running = timerInterval !== null;
+  const modeName = timerMode === "focus" ? "focus" : "break";
+  $("#timer-display").textContent = `${minutes}:${seconds}`;
+  $("#timer-caption").textContent = running ? (timerMode === "focus" ? "Stay with this task" : "Take a breath") : (timerSeconds === total ? (timerMode === "focus" ? "Ready to focus" : "Time to recharge") : "Paused");
+  $("#timer-dial").setAttribute("aria-label", `${minutes} minutes and ${seconds} seconds remaining in ${modeName} mode`);
+  $("#dial-progress").style.strokeDashoffset = String(326.73 * (1 - timerSeconds / total));
+  $("#timer-start").textContent = running ? "Pause session" : (timerSeconds === total ? `Start ${modeName}` : `Resume ${modeName}`);
+  $("#timer-start").setAttribute("aria-label", running ? "Pause focus timer" : `${timerSeconds === total ? "Start" : "Resume"} ${modeName} timer`);
+  $("#session-total").textContent = String(sessionsToday);
+  $(".timer-card").classList.toggle("is-break", timerMode === "break");
+  document.querySelectorAll(".timer-mode").forEach((button) => {
+    const selected = button.dataset.mode === timerMode;
+    button.classList.toggle("is-current", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+}
+
+function setTimerMode(mode) {
+  window.clearInterval(timerInterval);
+  timerInterval = null;
+  timerEndsAt = null;
+  timerMode = mode;
+  timerSeconds = mode === "focus" ? FOCUS_DURATION : BREAK_DURATION;
+  renderTimer();
+}
+
+function finishTimer() {
+  window.clearInterval(timerInterval);
+  timerInterval = null;
+  timerEndsAt = null;
+  if (timerMode === "focus") {
+    sessionsToday += 1;
+    writeStorage(`campusflow_sessions_${today}`, String(sessionsToday));
+    announce("Focus session complete. Take a short break.");
+    timerMode = "break";
+    timerSeconds = BREAK_DURATION;
+  } else {
+    announce("Break complete. Ready for another focus session?");
+    timerMode = "focus";
+    timerSeconds = FOCUS_DURATION;
+  }
+  renderTimer();
+}
+
+function toggleTimer() {
+  if (timerInterval !== null) {
+    timerSeconds = Math.max(0, Math.ceil((timerEndsAt - Date.now()) / 1000));
+    window.clearInterval(timerInterval);
+    timerInterval = null;
+    timerEndsAt = null;
+    renderTimer();
+    return;
+  }
+  timerEndsAt = Date.now() + timerSeconds * 1000;
+  timerInterval = window.setInterval(() => {
+    timerSeconds = Math.max(0, Math.ceil((timerEndsAt - Date.now()) / 1000));
+    if (timerSeconds === 0) finishTimer();
+    else renderTimer();
+  }, 250);
+  renderTimer();
 }
 
 function announce(message) {
@@ -246,6 +348,10 @@ document.querySelectorAll("[data-filter]").forEach((button) => button.addEventLi
 $("#task-search").addEventListener("input", (event) => { searchQuery = event.target.value; render(); });
 $("#focus-add").addEventListener("click", () => { titleInput.focus(); $("#new-task-panel").scrollIntoView({ behavior: "smooth", block: "center" }); });
 $("#empty-add").addEventListener("click", () => titleInput.focus());
+$("#focus-task").addEventListener("change", (event) => { selectedFocusTaskId = event.target.value; });
+document.querySelectorAll(".timer-mode").forEach((button) => button.addEventListener("click", () => setTimerMode(button.dataset.mode)));
+$("#timer-start").addEventListener("click", toggleTimer);
+$("#timer-reset").addEventListener("click", () => setTimerMode(timerMode));
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -278,11 +384,11 @@ $("#clear-completed").addEventListener("click", () => {
 
 $("#theme-toggle").addEventListener("click", () => {
   const isDark = document.body.classList.toggle("dark");
-  localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
+  writeStorage(THEME_KEY, isDark ? "dark" : "light");
   $("#theme-toggle").setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} theme`);
 });
 
-if (localStorage.getItem(THEME_KEY) === "dark") document.body.classList.add("dark");
+if (readStorage(THEME_KEY) === "dark") document.body.classList.add("dark");
 const now = new Date();
 $("#header-date").textContent = new Intl.DateTimeFormat(undefined, { weekday: "short", month: "short", day: "numeric" }).format(now);
 $("#welcome-date").textContent = new Intl.DateTimeFormat(undefined, { weekday: "long", month: "long", day: "numeric" }).format(now).toUpperCase();
